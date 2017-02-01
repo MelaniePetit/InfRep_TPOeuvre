@@ -28,8 +28,8 @@ public class Service {
 	}
 
 	// gestion des adherents
-	// Consultation d'un adh�rent par son num�ro
-	// Fabrique et renvoie un objet adh�rent contenant le r�sultat de la requ�te
+	// Consultation d'un adherent par son numero
+	// Fabrique et renvoie un objet adherent contenant le resultat de la requete
 	// BDD
 	public Adherent consulterAdherent(int numero) throws MonException {
 		String mysql = "select * from adherent where numero_adherent=" + numero;

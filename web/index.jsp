@@ -14,7 +14,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="refresh" content="0;URL=javascript:fermer();">
-        <link href="WEB-INF/lib/bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet"  href="bootstrap/css/bootstrap.css"/>
+
         <title>Expo : Médiathèque De POLYTECH</title>
     </head>
 
@@ -32,11 +33,10 @@
 
         <div class="col-xs-12">
             <div class="col-md-3"> Home </div>
-            <a href="Controleur?action=listerAdherent"><div class="col-md-3"> Liste </div></a>
+            <a href="Controleur?action=listerAdherent"><div class="col-md-3"> List </div></a>
             <a href="Controleur?action=ajouterAdherent"><div class="col-md-3"> Add </div></a>
             <div class="col-md-3"> Reservation </div>
         </div>
-
         <%--<li><a href="javascript:fermer()"><font face="Arial">Quitter</font></a><font face="Arial"> </font></li>--%>
 
     </body>
