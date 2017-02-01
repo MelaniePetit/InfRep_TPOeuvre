@@ -19,24 +19,26 @@
 					Adhérents </STRONG></U></FONT>
 	</P>
 
-	<TABLE BORDER="1">
-		<CAPTION>Tableau des Adhérents</CAPTION>
-		<TR>
-			<TH>Numero</TH>
-			<TH>Nom</TH>
-			<TH>Prénom</TH>
-			<TH>Ville</TH>
-
-		</TR>
-
-		<c:forEach items="${mesAdherents}" var="item">
+	<table>
+		<thead>
 			<tr>
-				<td>${item.idAdherent}</td>
-				<td>${item.nomAdherent}</td>
-				<td>${item.prenomAdherent}</td>
-                <td>${item.villeAdherent}</td>
+				<th>Numéro</th>
+				<th>Nom</th>
+				<th>Prénom</th>
+				<th>Ville</th>
 			</tr>
-		</c:forEach>
-	</TABLE>
+		</thead>
+		<tbody>
+			<c:forEach items="${mesAdherents}" var="item">
+				<tr>
+					<td>${item.idAdherent}</td>
+					<td>${item.nomAdherent}</td>
+					<td>${item.prenomAdherent}</td>
+					<td>${item.villeAdherent}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
 </body>
 </html>
