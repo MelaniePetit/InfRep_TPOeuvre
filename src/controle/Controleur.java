@@ -19,9 +19,13 @@ import java.io.IOException;
 public class Controleur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ACTION_TYPE = "action";
+
 	private static final String LISTER_RADHERENT = "listerAdherent";
 	private static final String AJOUTER_ADHERENT = "ajouterAdherent";
 	private static final String INSERER_ADHERENT = "insererAdherent";
+
+	private static final String LISTER_OEUVRE = "listerOeuvre";
+
 	private static final String ERROR_KEY = "messageErreur";
 	private static final String ERROR_PAGE = "/erreur.jsp";
 
@@ -89,6 +93,20 @@ public class Controleur extends HttpServlet {
 				e.printStackTrace();
 			}
 			destinationPage = "/index.jsp";
+		}
+
+		if (LISTER_OEUVRE.equals(actionName)) {
+			try {
+
+				Service unService = new Service();
+				request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
+
+			} catch (MonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			destinationPage = "/listerOeuvre.jsp";
 		}
 
 		else {

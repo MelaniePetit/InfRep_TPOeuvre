@@ -28,6 +28,8 @@ public class Oeuvrevente implements Serializable {
 	}
 
 	public Oeuvrevente() {
+		proprietaire = new Proprietaire();
+
 	}
 
 	public int getIdOeuvrevente() {
