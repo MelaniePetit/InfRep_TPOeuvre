@@ -1,23 +1,43 @@
-function teste()
-{
-   var  ok=true;
-    if(document.identification.nom.value == "")
-        {
-            alert("Veuillez entrer votre nom");
-            ok=false;
-        }
-      else
-          if(document.identification.prenom.value == "")
-            {
-            alert("Veuillez entrer votre prenom");
-            ok=false;
-        }
-          else
-              if(document.identification.ville.value == "")
-                {
-                alert("Veuillez entrer la ville");
-                ok=false;
+$(document).ready(function() {
+    $('#contact_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            txtnom: {
+                validators: {
+                    stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: 'Merci de renseigner votre nom'
+                    }
+                }
+            },
+            txtprenom: {
+                validators: {
+                    stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: 'Merci de renseigner votre prenom'
+                    }
+                }
+            },
+            txtville: {
+                validators: {
+                    stringLength: {
+                        min: 4,
+                    },
+                    notEmpty: {
+                        message: 'Merci de renseigner votre lieu de residence'
+                    }
+                }
             }
+        }
+    })
+});
 
-return ok;
-}

@@ -29,8 +29,8 @@
 <table>
     <thead>
     <tr>
-        <th>Numéro</th>
         <th>Titre</th>
+        <th>Prix</th>
         <th>Nom proprietaire</th>
         <th>Prenom proprietaire</th>
     </tr>
@@ -38,8 +38,8 @@
     <tbody>
     <c:forEach items="${mesOeuvres}" var="item">
         <tr>
-            <td>${item.idOeuvrevente}</td>
             <td>${item.titreOeuvrevente}</td>
+            <td>${item.prixOeuvrevente}</td>
             <td>${item.proprietaire.nomProprietaire}</td>
             <td>${item.proprietaire.prenomProprietaire}</td>
         </tr>

@@ -3,6 +3,7 @@ package controle;
 import erreurs.MonException;
 import metier.Adherent;
 import dao.Service;
+import metier.Oeuvrevente;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,11 @@ public class Controleur extends HttpServlet {
 	private static final String INSERER_ADHERENT = "insererAdherent";
 
 	private static final String LISTER_OEUVRE = "listerOeuvre";
+	private static final String AJOUTER_OEUVRE = "ajouterOeuvre";
+	private static final String INSERER_OEUVRE = "insererOeuvre";
+	private static final String RESERVER_OEUVRE = "reserverOeuvre";
+
+	private static final String LISTER_PROPRIETAIRE = "listerProprietaire";
 
 	private static final String ERROR_KEY = "messageErreur";
 	private static final String ERROR_PAGE = "/erreur.jsp";
@@ -79,7 +85,8 @@ public class Controleur extends HttpServlet {
 		if (AJOUTER_ADHERENT.equals(actionName)) {
 
 			destinationPage = "/ajouterAdherent.jsp";
-		} else if (INSERER_ADHERENT.equals(actionName)) {
+		}
+		else if (INSERER_ADHERENT.equals(actionName)) {
 			try {
 				Adherent unAdherent = new Adherent();
 				unAdherent.setNomAdherent(request.getParameter("txtnom"));
@@ -107,6 +114,35 @@ public class Controleur extends HttpServlet {
 			}
 
 			destinationPage = "/listerOeuvre.jsp";
+		}
+
+		if (AJOUTER_OEUVRE.equals(actionName)) {
+
+			try {
+			Service unService = new Service();
+			request.setAttribute("mesProprietaires", unService.consulterListeProprietaire());
+			} catch (MonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			destinationPage = "/ajouterOeuvre.jsp";
+		}
+		else if (INSERER_OEUVRE.equals(actionName)) {
+			try {
+				Oeuvrevente uneOeuvre = new Oeuvrevente();
+				uneOeuvre.setTitreOeuvrevente(request.getParameter("txttitre"));
+				uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("txtprix")));
+				uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("txtnomproprio"));
+
+				Service unService = new Service();
+				unService.insertOeuvre(uneOeuvre);
+
+
+			} catch (MonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			destinationPage = "/index.jsp";
 		}
 
 		else {

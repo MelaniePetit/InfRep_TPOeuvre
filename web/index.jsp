@@ -16,7 +16,8 @@
         <meta http-equiv="refresh" content="0;URL=javascript:fermer();">
         <link rel="stylesheet"  href="bootstrap/css/bootstrap.css"/>
 
-        <title>Expo : Médiathèque De POLYTECH</title>
+
+        <title>Médiathèque De POLYTECH</title>
     </head>
 
     <%--<script language="JavaScript">--%>
@@ -34,8 +35,10 @@
         <div class="col-xs-12">
             <div class="col-md-3"> Home </div>
             <a href="Controleur?action=listerAdherent"><div class="col-md-3"> List of Adherent</div></a>
-            <a href="Controleur?action=ajouterAdherent"><div class="col-md-3"> Add </div></a>
+            <a href="Controleur?action=ajouterAdherent"><div class="col-md-3"> Add Adherent </div></a>
             <a href="Controleur?action=listerOeuvre"><div class="col-md-3"> List of Oeuvre </div></a>
+            <a href="Controleur?action=ajouterOeuvre"><div class="col-md-3"> Add Oeuvre </div></a>
+
             <div class="col-md-3"> Reservation </div>
         </div>
         <%--<li><a href="javascript:fermer()"><font face="Arial">Quitter</font></a><font face="Arial"> </font></li>--%>
