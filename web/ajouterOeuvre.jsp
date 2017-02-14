@@ -1,22 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Mel
-  Date: 03/02/2017
-  Time: 23:54
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Ajouter Oeuvre</title>
-        <link rel="stylesheet"  href="bootstrap/css/bootstrap.css"/>
-        <link rel="stylesheet" href="css/StyleAddAdherent.css">
-    </head>
 
-    <body>
+<t:layout title="ArtZone | AddArt">
+    <jsp:attribute name="body_tag">
         <div id="conteneur">
             <div class="element">
                 <h1> Ajout d'une oeuvre </h1>
@@ -52,13 +40,12 @@
                                 <button type="submit" class="btn btn-info">Ajouter</button>
                             </div>
                             <div>
-                                <a class="btn btn-default" href="index.jsp">Retour<a/>
+                                <a class="btn btn-default" href="index.jsp">Retour</a>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </body>
-
-</html>
+    </jsp:attribute>
+</t:layout>

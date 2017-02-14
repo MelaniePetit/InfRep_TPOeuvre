@@ -1,0 +1,217 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #DFDFDF; }
+
+.flex-center-center-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; }
+
+.flex-center-start-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap; }
+
+.flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.menu-list {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  height: 70px;
+  z-index: 999; }
+  .menu-list .menu {
+    position: absolute;
+    opacity: 0;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid whitesmoke;
+    background-color: rgba(150, 0, 0, 0.8);
+    color: whitesmoke;
+    cursor: pointer; }
+    .menu-list .menu:nth-child(1) {
+      transition: transform 0.5s ease 0.2s, opacity 0.5s ease 0.2s, border-color 0.5s ease 0s, background-color 0.5s ease 0s; }
+    .menu-list .menu:nth-child(2) {
+      transition: transform 0.5s ease 0.4s, opacity 0.5s ease 0.4s, border-color 0.5s ease 0s, background-color 0.5s ease 0s; }
+    .menu-list .menu:nth-child(3) {
+      transition: transform 0.5s ease 0.6s, opacity 0.5s ease 0.6s, border-color 0.5s ease 0s, background-color 0.5s ease 0s; }
+    .menu-list .menu:nth-child(4) {
+      transition: transform 0.5s ease 0.8s, opacity 0.5s ease 0.8s, border-color 0.5s ease 0s, background-color 0.5s ease 0s; }
+    .menu-list .menu.active {
+      opacity: 1; }
+      .menu-list .menu.active:nth-child(1) {
+        transform: translate(0, -250%); }
+      .menu-list .menu.active:nth-child(2) {
+        transform: translate(180%, -180%); }
+      .menu-list .menu.active:nth-child(3) {
+        transform: translate(250%, 0); }
+      .menu-list .menu.active:nth-child(4) {
+        transform: translate(180%, 180%); }
+      .menu-list .menu.active:hover {
+        border-color: black;
+        background-color: rgba(150, 0, 0, 0.5); }
+    .menu-list .menu a {
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      color: white; }
+
+span {
+  display: block;
+  background: #566973;
+  border-radius: 2px; }
+
+* {
+  transition: 0.25s ease-in-out;
+  box-sizing: border-box; }
+
+#menu-toggle {
+  width: 70px;
+  height: 70px;
+  margin: 50px auto;
+  position: relative;
+  cursor: pointer;
+  border-radius: 5px; }
+  #menu-toggle #hamburger {
+    position: absolute;
+    height: 100%;
+    width: 100%; }
+    #menu-toggle #hamburger span {
+      width: 40px;
+      height: 4px;
+      position: relative;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 10px 0; }
+      #menu-toggle #hamburger span:nth-child(1) {
+        transition-delay: 0.5s; }
+      #menu-toggle #hamburger span:nth-child(2) {
+        transition-delay: 0.625s; }
+      #menu-toggle #hamburger span:nth-child(3) {
+        transition-delay: 0.75s; }
+  #menu-toggle #cross {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform: rotate(45deg); }
+    #menu-toggle #cross span:nth-child(1) {
+      height: 0;
+      width: 4px;
+      position: absolute;
+      top: 0;
+      left: 33px;
+      transition-delay: 0s; }
+    #menu-toggle #cross span:nth-child(2) {
+      width: 0;
+      height: 4px;
+      position: absolute;
+      left: 0;
+      top: 33px;
+      transition-delay: 0.25s; }
+
+#menu-toggle.open #hamburger span {
+  width: 0; }
+  #menu-toggle.open #hamburger span:nth-child(1) {
+    transition-delay: 0s; }
+  #menu-toggle.open #hamburger span:nth-child(2) {
+    transition-delay: 0.125s; }
+  #menu-toggle.open #hamburger span:nth-child(3) {
+    transition-delay: 0.25s; }
+#menu-toggle.open #cross span:nth-child(1) {
+  height: 100%;
+  transition-delay: 0.625s; }
+#menu-toggle.open #cross span:nth-child(2) {
+  width: 100%;
+  transition-delay: 0.375s; }
+
+#fullScreen {
+  position: relative;
+  width: 100%;
+  height: 100%; }
+  #fullScreen #brand {
+    font-size: 200px;
+    z-index: 99;
+    font-family: "Leckerli One", cursive; }
+    @media (max-width: 767px) {
+      #fullScreen #brand {
+        font-size: 170px; } }
+    @media (max-width: 575px) {
+      #fullScreen #brand {
+        font-size: 90px; } }
+  #fullScreen #logo {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    padding-bottom: 35%;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 2em rgba(150, 0, 0, 0.3), inset 0 0 0 5em rgba(150, 0, 0, 0.3), inset 0 0 0 10em rgba(150, 0, 0, 0.3); }
+    @media (max-width: 1200px) {
+      #fullScreen #logo {
+        width: 45%;
+        padding-bottom: 45%; } }
+    @media (max-width: 900px) {
+      #fullScreen #logo {
+        width: 60%;
+        padding-bottom: 60%; } }
+    @media (max-width: 575px) {
+      #fullScreen #logo {
+        width: 75%;
+        padding-bottom: 75%; } }
+    #fullScreen #logo #circleMenu {
+      position: absolute;
+      z-index: 999;
+      bottom: 0;
+      left: 50%;
+      right: 50%;
+      top: 100%;
+      width: 70px;
+      height: 70px;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      border-radius: 50%;
+      border: 5px solid #960000;
+      font-size: 50px;
+      cursor: pointer;
+      -webkit-transition: all 0.5s ease 1.2s;
+      -moz-transition: all 0.5s ease 1.2s;
+      -o-transition: all 0.5s ease 1.2s;
+      -ms-transition: all 0.5s ease 1.2s;
+      transition: all 0.5s ease 1.2s; }
+      #fullScreen #logo #circleMenu.active {
+        z-index: 9999;
+        width: 200px;
+        height: 200px;
+        top: 50%;
+        -webkit-transition: all 0.5s ease 0s;
+        -moz-transition: all 0.5s ease 0s;
+        -o-transition: all 0.5s ease 0s;
+        -ms-transition: all 0.5s ease 0s;
+        transition: all 0.5s ease 0s; }
+        @media (max-width: 767px) {
+          #fullScreen #logo #circleMenu.active {
+            width: 100px;
+            height: 100px; } }
+
+#overlay {
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s; }
+  #overlay.active {
+    background-color: rgba(0, 0, 0, 0.9); }

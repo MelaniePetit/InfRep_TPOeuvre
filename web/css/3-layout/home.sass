@@ -1,0 +1,65 @@
+#fullScreen
+  position: relative
+  @include size(100%,100%)
+  #brand
+    font-size: 200px
+    z-index: 99
+    font-family: 'Leckerli One', cursive
+    @media (max-width: 767px)
+      font-size: 170px
+    @media (max-width: 575px)
+      font-size: 90px
+
+  #logo
+    position: absolute
+    width: 35%
+    height: auto
+    padding-bottom: 35%
+    border-radius: 50%
+    box-shadow: inset 0 0 0 2em rgba(_palette(general,highlight),0.3), inset 0 0 0 5em rgba(_palette(general,highlight),0.3), inset 0 0 0 10em rgba(_palette(general,highlight),0.3)
+    @media (max-width: 1200px)
+      width: 45%
+      padding-bottom: 45%
+    @media (max-width: 900px)
+      width: 60%
+      padding-bottom: 60%
+    @media (max-width: 575px)
+      width: 75%
+      padding-bottom: 75%
+
+    #circleMenu
+      position: absolute
+      z-index: 999
+      bottom: 0
+      left: 50%
+      right: 50%
+      top: 100%
+      width: 70px
+      height: 70px
+      transform: translate(-50%,-50%)
+      background-color: white
+      border-radius: 50%
+      border: 5px solid _palette(general,highlight)
+      font-size: 50px
+      cursor: pointer
+      @include transition(all,0.5s,ease,1.2s)
+      &.active
+        z-index: 9999
+        width: 200px
+        height: 200px
+        top: 50%
+        @include transition(all,0.5s,ease,0s)
+        @media (max-width: 767px)
+          width: 100px
+          height: 100px
+
+#overlay
+  z-index: 99
+  position: absolute
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  @include transition()
+  &.active
+    background-color: rgba(0,0,0,0.9)

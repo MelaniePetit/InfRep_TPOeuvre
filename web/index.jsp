@@ -1,48 +1,49 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Mel
-  Date: 01/02/2017
-  Time: 09:39
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta http-equiv="refresh" content="0;URL=javascript:fermer();">
-        <link rel="stylesheet"  href="bootstrap/css/bootstrap.css"/>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+<t:layout title="ArtZone | Home">
 
-        <title>Médiathèque De POLYTECH</title>
-    </head>
-
-    <%--<script language="JavaScript">--%>
-        <%--function fermer() {--%>
-        <%--}--%>
-    <%--</script>--%>
-
-    <body>
-
-        <div class="col-xs-12">
-            <h1 class="text-center"> Médiathèque de Polytech </h1>
-            <h1 class="text-center"><small>Gestion de l'exposition 2016</small></h1>
+    <jsp:attribute name="body_tag">
+        <div id="fullScreen" class="flex-center-center col-xs-11 col-sm-6 col-md-4">
+            <div id="brand">ArtZone</div>
+            <div id="logo" class="flex-center-center col-xs-12 col-md-8">
+                <div id="circleMenu" class="flex-center-center">
+                    <div id="menu-toggle" class="flex-center-center-wrap">
+                        <div id="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div id="cross">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-list">
+                    <div class="menu flex-center-center">
+                        <a href="Controleur?action=listerAdherent" class="flex-center-center"><i class="fa fa-users flex-center-center fa-2x"></i></a>
+                    </div>
+                    <div class="menu flex-center-center">
+                        <a href="Controleur?action=ajouterAdherent" class="flex-center-center"><i class="fa fa-paint-brush flex-center-center fa-2x"></i></a>
+                    </div>
+                    <div class="menu flex-center-center">
+                        <a href="Controleur?action=listerOeuvre" class="flex-center-center"><i class="fa fa-book flex-center-center fa-2x"></i></a>
+                    </div>
+                    <div class="menu flex-center-center">
+                        <a href="Controleur?action=ajouterOeuvre" class="flex-center-center"><i class="fa fa-desktop flex-center-center fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div id="overlay"></div>
 
-        <div class="col-xs-12">
-            <div class="col-md-3"> Home </div>
-            <a href="Controleur?action=listerAdherent"><div class="col-md-3"> List of Adherent</div></a>
-            <a href="Controleur?action=ajouterAdherent"><div class="col-md-3"> Add Adherent </div></a>
-            <a href="Controleur?action=listerOeuvre"><div class="col-md-3"> List of Oeuvre </div></a>
-            <a href="Controleur?action=ajouterOeuvre"><div class="col-md-3"> Add Oeuvre </div></a>
+    </jsp:attribute>
 
-            <div class="col-md-3"> Reservation </div>
-        </div>
-        <%--<li><a href="javascript:fermer()"><font face="Arial">Quitter</font></a><font face="Arial"> </font></li>--%>
+    <jsp:attribute name="javascripts_tag">
+        <script type="application/javascript" src="js/menu.js"></script>
+    </jsp:attribute>
 
-    </body>
+</t:layout>
 
-</html>

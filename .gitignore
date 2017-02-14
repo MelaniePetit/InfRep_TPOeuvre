@@ -1,2 +1,10 @@
 .idea/
-
+out/
+target/
+/web/css/0-plugin/*.css*
+/web/css/1-base/*.css*
+/web/css/2-module/*.css*
+/web/css/3-layout/*.css*
+/module_infrep_tpoeuvre.xml
+/oeuvreswebapp.properties
+/oeuvreswebapp.xml

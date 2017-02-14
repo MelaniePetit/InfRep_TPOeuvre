@@ -1,0 +1,42 @@
+.menu-list
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+  @include size(70px,70px)
+  z-index: 999
+  .menu
+    position: absolute
+    opacity: 0
+    @include size(70px,70px)
+    border-radius: 50%
+    border: 2px solid whitesmoke
+    background-color: rgba(_palette(general,highlight),0.8)
+    color: whitesmoke
+    cursor: pointer
+    &:nth-child(1)
+      transition: transform 0.5s ease 0.2s, opacity 0.5s ease 0.2s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(2)
+      transition: transform 0.5s ease 0.4s, opacity 0.5s ease 0.4s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(3)
+      transition: transform 0.5s ease 0.6s, opacity 0.5s ease 0.6s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+    &:nth-child(4)
+      transition: transform 0.5s ease 0.8s, opacity 0.5s ease 0.8s, border-color 0.5s ease 0s, background-color 0.5s ease 0s
+
+    &.active
+      opacity: 1
+      &:nth-child(1)
+        transform: translate(0,-250%)
+      &:nth-child(2)
+        transform: translate(180%,-180%)
+      &:nth-child(3)
+        transform: translate(250%,0)
+      &:nth-child(4)
+        transform: translate(180%,180%)
+      &:hover
+        border-color: black
+        background-color: rgba(_palette(general,highlight),0.5)
+
+    a
+      @include size(100%,100%)
+      text-decoration: none
+      color: white
