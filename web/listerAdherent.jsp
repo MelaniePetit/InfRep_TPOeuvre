@@ -3,18 +3,9 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<t:layout title="ArtZone | ListOfFollower">
-	<jsp:attribute name="body_tag">
-		<P>
-			<A href="index.jsp"><FONT face="Arial" color="#004080">Retour
-				Accueil</FONT></A>
-		</P>
-		<P align="center">
-			<FONT face="Arial" size="5" color="#004080"><U> <STRONG>Listing&nbsp;des
-				Adhérents </STRONG></U></FONT>
-		</P>
-
-		<table class="table table-hover">
+<t:layout title="ListOfFollower" contentTitle="List Of Follower">
+	<jsp:attribute name="content_tag">
+		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
 				<th>Numéro</th>

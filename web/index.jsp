@@ -2,7 +2,7 @@
 
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:layout title="ArtZone | Home">
+<t:base_layout title="ArtZone | Home">
 
     <jsp:attribute name="body_tag">
         <div id="fullScreen" class="flex-center-center col-xs-11 col-sm-6 col-md-4">
@@ -45,5 +45,5 @@
         <script type="application/javascript" src="js/menu.js"></script>
     </jsp:attribute>
 
-</t:layout>
+</t:base_layout>
 

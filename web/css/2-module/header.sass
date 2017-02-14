@@ -1,0 +1,23 @@
+header
+  position: relative
+  background-color: _palette(header,bg)
+  @include size(100%,70px)
+  .back-to-home
+    position: absolute
+    left: 10px
+    top: 0
+    bottom: 0
+    @include transition()
+    .fa-arrow-left:hover
+      color: _palette(general,highlight)
+  .open-close-menu
+    position: absolute
+    right: 10px
+    top: 0
+    bottom: 0
+    color: _palette(general,highlight)
+  h1
+    margin: 0
+    font-family: 'Leckerli One', cursive
+    @media screen and (max-width: 375px)
+      font-size: 25px

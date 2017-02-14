@@ -1,30 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%@tag description="Base Template" pageEncoding="UTF-8"%>
-
-<%@attribute name="title"%>
-<%@attribute name="head_tag" fragment="true" %>
-<%@attribute name="body_tag" fragment="true" %>
+<%@attribute name="content_tag" fragment="true" %>
 <%@attribute name="javascripts_tag" fragment="true" %>
+<%@attribute name="contentTitle"%>
+<%@attribute name="title"%>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta http-equiv="refresh" content="0;URL=javascript:fermer();">
-        <link href="https://fonts.googleapis.com/css?family=Leckerli+One" rel="stylesheet">
-        <link rel="stylesheet"  href="lib/bootstrap/css/bootstrap.css"/>
-        <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.css">
-        <link rel="stylesheet" href="css/main.css">
-        <title>${title}</title>
-        <jsp:invoke fragment="head_tag"/>
-    </head>
+<t:base_layout title="${title}">
+    <jsp:attribute name="body_tag">
+        <header class="flex-center-center">
+            <a href="index.jsp" class="back-to-home flex-center-center"><i class="fa fa-arrow-left fa-2x"></i></a>
+            <h1>${contentTitle}</h1>
+            <a class="open-close-menu flex-center-center"><i class="fa fa-bars fa-2x"></i></a>
+        </header>
 
-    <body>
-        <jsp:invoke fragment="body_tag"/>
+        <div id="MainContainer">
+            <div id="ContentContainer">
+                <div class="container">
+                    <div class="col-xs-12">
+                        <jsp:invoke fragment="content_tag"/>
+                    </div>
+                </div>
+            </div>
+            <div id="MenuContainer">
+            </div>
+        </div>
+    </jsp:attribute>
 
-        <script type="application/javascript" src="lib/jquery/jquery-1.11.2.min.js"></script>
-        <script type="application/javascript" src="lib/bootstrap/js/bootstrap.js"></script>
+    <jsp:attribute name="javascripts_tag">
         <jsp:invoke fragment="javascripts_tag"/>
-    </body>
+    </jsp:attribute>
 
-</html>
+</t:base_layout>
