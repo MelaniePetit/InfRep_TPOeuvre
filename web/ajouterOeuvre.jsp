@@ -3,7 +3,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<t:layout title="AddArt" contentTitle="Add Art">
+<t:layout title="AddWorkOfArt" contentTitle="Add Work Of Art">
     <jsp:attribute name="content_tag">
         <div class="element">
             <div class="jumbotron">

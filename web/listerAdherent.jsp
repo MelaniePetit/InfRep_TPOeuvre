@@ -3,7 +3,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<t:layout title="ListOfFollower" contentTitle="List Of Follower">
+<t:layout title="ListOfMembers" contentTitle="List Of Members">
 	<jsp:attribute name="content_tag">
 		<table class="table table-bordered table-hover">
 			<thead>

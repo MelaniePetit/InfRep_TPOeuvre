@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:layout title="AddFollower" contentTitle="Add Follower">
+<t:layout title="AddMember" contentTitle="Add Member">
     <jsp:attribute name="content_tag">
         <div class="element">
             <div class="jumbotron">

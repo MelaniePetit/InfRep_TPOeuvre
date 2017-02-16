@@ -1,11 +1,22 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #DFDFDF; }
+  background-color: #DFDFDF;
+  overflow: hidden; }
 
 a, a:hover, a:active, a:focus {
   text-decoration: none;
   color: #333; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Leckerli One", cursive; }
+
+#MainContainer {
+  position: relative;
+  min-height: 92vh; }
+
+i.clickable {
+  cursor: pointer; }
 
 .flex-center-center-wrap {
   display: flex;
@@ -53,12 +64,24 @@ a, a:hover, a:active, a:focus {
       opacity: 1; }
       .menu-list .menu.active:nth-child(1) {
         transform: translate(0, -250%); }
+        @media (max-width: 767px) {
+          .menu-list .menu.active:nth-child(1) {
+            transform: translate(0, -180%); } }
       .menu-list .menu.active:nth-child(2) {
         transform: translate(180%, -180%); }
+        @media (max-width: 767px) {
+          .menu-list .menu.active:nth-child(2) {
+            transform: translate(130%, -130%); } }
       .menu-list .menu.active:nth-child(3) {
         transform: translate(250%, 0); }
+        @media (max-width: 767px) {
+          .menu-list .menu.active:nth-child(3) {
+            transform: translate(180%, 0); } }
       .menu-list .menu.active:nth-child(4) {
         transform: translate(180%, 180%); }
+        @media (max-width: 767px) {
+          .menu-list .menu.active:nth-child(4) {
+            transform: translate(130%, 130%); } }
       .menu-list .menu.active:hover {
         border-color: black;
         background-color: rgba(150, 0, 0, 0.5); }
@@ -141,7 +164,8 @@ header {
   position: relative;
   background-color: #CDCDCD;
   width: 100%;
-  height: 70px; }
+  height: 8vh;
+  min-height: 8vh; }
   header .back-to-home {
     position: absolute;
     left: 10px;
@@ -167,6 +191,22 @@ header {
       header h1 {
         font-size: 25px; } }
 
+#MenuContainer {
+  background-color: red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+  transform: translateX(100%); }
+  #MenuContainer.slide {
+    transform: translateX(0%); }
+
 table {
   margin-top: 50px; }
   table thead {
@@ -191,6 +231,19 @@ table {
     @media (max-width: 575px) {
       #fullScreen #brand {
         font-size: 90px; } }
+  #fullScreen .menu-label {
+    position: absolute;
+    z-index: 99999;
+    top: 0;
+    opacity: 0;
+    color: white;
+    -webkit-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+    -ms-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s; }
+    #fullScreen .menu-label.appear {
+      opacity: 1; }
   #fullScreen #logo {
     position: absolute;
     width: 35%;

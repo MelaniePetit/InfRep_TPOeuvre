@@ -26,12 +26,20 @@
       opacity: 1
       &:nth-child(1)
         transform: translate(0,-250%)
+        @media (max-width: 767px)
+          transform: translate(0,-180%)
       &:nth-child(2)
         transform: translate(180%,-180%)
+        @media (max-width: 767px)
+          transform: translate(130%,-130%)
       &:nth-child(3)
         transform: translate(250%,0)
+        @media (max-width: 767px)
+          transform: translate(180%,0)
       &:nth-child(4)
         transform: translate(180%,180%)
+        @media (max-width: 767px)
+          transform: translate(130%,130%)
       &:hover
         border-color: black
         background-color: rgba(_palette(general,highlight),0.5)
