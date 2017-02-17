@@ -37,6 +37,10 @@
                     <div class="menu flex-center-center" menu-label="Add Work Of Art">
                         <a href="Controleur?action=ajouterOeuvre" class="flex-center-center"><i class="fa fa-desktop flex-center-center fa-2x"></i></a>
                     </div>
+
+                    //Here you can add some new links
+                    // the attribute "menu-label" is the sentence whiwh appear on hover
+
                 </div>
             </div>
         </div>
