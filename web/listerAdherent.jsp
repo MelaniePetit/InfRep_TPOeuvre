@@ -12,6 +12,7 @@
 				<th>Nom</th>
 				<th>Prénom</th>
 				<th>Ville</th>
+                <th></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -21,6 +22,9 @@
 						<td>${item.nomAdherent}</td>
 						<td>${item.prenomAdherent}</td>
 						<td>${item.villeAdherent}</td>
+						<td><button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button>
+							<a href="ListeAdherents?action=suppAdherent&id=${item.idAdherent}"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

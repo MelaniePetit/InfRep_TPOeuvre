@@ -8,10 +8,11 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th>Titre</th>
-                <th>Prix</th>
-                <th>Nom proprietaire</th>
-                <th>Prenom proprietaire</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Last Name of Owner</th>
+                <th>First Name of Owner</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -21,6 +22,9 @@
                         <td>${item.prixOeuvrevente}</td>
                         <td>${item.proprietaire.nomProprietaire}</td>
                         <td>${item.proprietaire.prenomProprietaire}</td>
+                        <td><button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button>
+                            <a href="ListeOeuvres?action=suppOeuvre&titre=${item.titreOeuvrevente}"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

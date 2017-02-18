@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<c:set var="menuLabelList" value="${['List Of Members','Add Member','List Of Works Of Art','Add Work Of Art']}"/>
-<c:set var="iconList" value="${['fa-users','fa-user-plus','fa-paint-brush','fa-desktop']}"/>
-<c:set var="controllerList" value="${['Controleur?action=listerAdherent','Controleur?action=ajouterAdherent','Controleur?action=listerOeuvre','Controleur?action=ajouterOeuvre']}"/>
+<c:set var="menuLabelList" value="${['List Of Members','Add Member','List Of Works Of Art','Add Work Of Art','Reservation']}"/>
+<c:set var="iconList" value="${['fa-users','fa-user-plus','fa-paint-brush','fa-desktop', 'fa-bookmark']}"/>
+<c:set var="controllerList" value="${['ListeAdherents?action=listerAdherent','AjouterAdherent?action=ajouterAdherent','ListeOeuvres?action=listerOeuvre','AjouterOeuvre?action=ajouterOeuvre','Reservation?action=reserverOeuvre']}"/>
 
 <div id="circleMenu" class="flex-center-center">
     <div id="menu-toggle" class="flex-center-center-wrap">

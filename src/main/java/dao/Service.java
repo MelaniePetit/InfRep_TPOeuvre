@@ -108,6 +108,13 @@ public class Service {
 		return consulterListeOeuvres(mysql);
 	}
 
+    public List<Oeuvrevente> consulterListeOeuvresDisponibles() throws MonException {
+        String mysql = "SELECT  titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
+                " FROM `oeuvrevente` as x,`proprietaire` as y " +
+                "WHERE x.id_proprietaire = y.id_proprietaire AND x.etat_oeuvrevente = 'L' ";
+        return consulterListeOeuvres(mysql);
+    }
+
 	private List<Oeuvrevente> consulterListeOeuvres(String mysql) throws MonException {
 		List<Object> rs;
 		List<Oeuvrevente> mesOeuvres = new ArrayList<Oeuvrevente>();
@@ -169,5 +176,52 @@ public class Service {
             throw new MonException(exc.getMessage(), "systeme");
         }
     }
+
+	// Mise a jour des caracteristiques d'une oeuvre
+	// Le booleen indique s'il s'agit d'une nouvelle oeuvre, auquel cas on fait
+	// une creation
+
+	public void insertReservation(Reservation uneResa) throws MonException {
+		String mysql;
+		Object rs1;
+		Object rs2;
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		try {
+			mysql = "select id_oeuvrevente from oeuvrevente where titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
+			rs1 = DialogueBd.lecture(mysql);
+			mysql = "select id_adherent from adherent where nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
+			rs2 = DialogueBd.lecture(mysql);
+			mysql = "insert into reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
+					+ rs1.toString() + "','"
+					+ rs2.toString() + "','"
+					+ uneResa.getDate() + "','"
+					+ "confirmee" + "')";
+
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+	}
+
+	public void supprimerOeuvre(String titre) throws MonException {
+		String mysql = "DELETE from oeuvrevente WHERE titre_oeuvrevente='" + titre + "'";
+		supprimer(mysql);
+	}
+
+	public void supprimerAdherent(String id) throws MonException {
+		String mysql = "DELETE from adherent WHERE id_adherent='" + id + "'";
+		supprimer(mysql);
+	}
+
+	public void supprimer(String mysql) throws MonException {
+
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		try {
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+
+	}
 
 }
