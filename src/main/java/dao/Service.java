@@ -187,16 +187,18 @@ public class Service {
 		Object rs2;
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
 		try {
-			mysql = "select id_oeuvrevente from oeuvrevente where titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
+			mysql = "SELECT id_oeuvrevente FROM oeuvrevente WHERE titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
 			rs1 = DialogueBd.lecture(mysql);
-			mysql = "select id_adherent from adherent where nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
+			mysql = "SELECT id_adherent FROM adherent WHERE nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
 			rs2 = DialogueBd.lecture(mysql);
-			mysql = "insert into reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
+			mysql = "INSERT INTO reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
 					+ rs1.toString() + "','"
 					+ rs2.toString() + "','"
 					+ uneResa.getDate() + "','"
 					+ "confirmee" + "')";
 
+			unDialogueBd.insertionBD(mysql);
+			mysql = "UPDATE oeuvrevente SET etat_oeuvrevente = 'R' WHERE id_oeuvrevente='" + rs1.toString()+"'";
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {
 			throw e;

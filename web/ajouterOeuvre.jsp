@@ -7,7 +7,7 @@
     <jsp:attribute name="content_tag">
         <div class="element">
             <div class="jumbotron">
-                <form  class="form-horizontal" name='identification' method="post" action="Controleur?action=insererOeuvre" onsubmit="return teste()">
+                <form  class="form-horizontal" name='identification' method="post" action="AjouterOeuvre?action=insererOeuvre" onsubmit="return teste()">
                     <div class="form-group">
                         <label class="control-label col-sm-2" >Titre</label>
                         <div class="col-sm-5">

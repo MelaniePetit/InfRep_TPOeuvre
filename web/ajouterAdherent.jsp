@@ -5,7 +5,7 @@
     <jsp:attribute name="content_tag">
         <div class="element">
             <div class="jumbotron">
-                <form  class="well form-horizontal" name='identification' method="post" action="Controleur?action=insererAdherent" onsubmit="return teste()">
+                <form  class="well form-horizontal" name='identification' method="post" action="AjouterAdherent?action=insererAdherent" onsubmit="return teste()">
                     <div class="form-group">
                         <label class="control-label col-sm-2" >Nom</label>
                         <div class="col-sm-5">

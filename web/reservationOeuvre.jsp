@@ -22,21 +22,15 @@
             </div>
             <div class="element">
                 <div class="jumbotron">
-                    <form  class="well form-horizontal" name='identification' method="post" action="Controleur?action=insererAdherent" onsubmit="return teste()">
+                    <form  class="well form-horizontal" name='identification' method="post" action="Reservation?action=insererReservation" onsubmit="return teste()">
                         <div class="form-group">
                             <label class="control-label col-sm-2" >Oeuvres disponibles</label>
                             <div class="col-sm-5">
-                                <select class="form-control " name="txttitre onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
+                                <select class="form-control " name="txttitre" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
                                     <c:forEach items="${mesOeuvres}" var="item">
                                         <option>${item.titreOeuvrevente}</option>
                                     </c:forEach>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" >Prix de l'oeuvre</label>
-                            <div class="col-sm-5">
-                                <input type="text" name="txtprix"  id ="prix" class="form-control" placeholder="Prix" required >
                             </div>
                         </div>
                         <div class="form-group">
