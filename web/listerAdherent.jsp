@@ -5,29 +5,6 @@
 
 <t:layout title="ListOfMembers" contentTitle="Members\' List">
 	<jsp:attribute name="content_tag">
-		<table class="table table-bordered table-hover">
-			<thead>
-			<tr>
-				<th class="hidden-xs">Id</th>
-				<th>Lastname</th>
-				<th>Firstname</th>
-				<th>City</th>
-                <th></th>
-			</tr>
-			</thead>
-			<tbody>
-			<c:forEach items="${mesAdherents}" var="item">
-					<tr>
-						<td class="hidden-xs">${item.idAdherent}</td>
-						<td>${item.nomAdherent}</td>
-						<td>${item.prenomAdherent}</td>
-						<td>${item.villeAdherent}</td>
-						<td><a href="ListeAdherents?action=editAdherent&id=${item.idAdherent}"><button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button></a>
-							<a href="ListeAdherents?action=suppAdherent&id=${item.idAdherent}"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<t:table entities="${mesAdherents}"/>
 	</jsp:attribute>
 </t:layout>

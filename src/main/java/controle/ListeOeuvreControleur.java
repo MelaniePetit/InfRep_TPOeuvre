@@ -21,7 +21,7 @@ public class ListeOeuvreControleur extends HttpServlet {
 
     private static final String LISTER = "listerOeuvre";
     private static final String SUPPRIMER = "suppOeuvre";
-    private static final String ID = "titre";
+    private static final String ID = "id";
 
     private static final String ERROR_KEY = "messageErreur";
     private static final String ERROR_PAGE = "/erreur.jsp";
@@ -70,11 +70,11 @@ public class ListeOeuvreControleur extends HttpServlet {
             destinationPage = "/listerOeuvre.jsp";
         }
         if (SUPPRIMER.equals(actionName)) {
-            String titre = request.getParameter(ID);
+            int id = Integer.parseInt(request.getParameter(ID));
             try {
 
                 Service unService = new Service();
-                unService.supprimerOeuvre(titre);
+                unService.supprimerOeuvre(id);
 
                 unService = new Service();
                 request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());

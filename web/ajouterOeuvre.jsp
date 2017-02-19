@@ -6,9 +6,9 @@
 <t:form title="AddWorkOfArt" contentTitle="Add Work Of Art" action="AjouterOeuvre?action=insererOeuvre" typeOfEntity="work of art">
     <jsp:attribute name="form_tag">
         <t:input type="text" name="txttitre" id="titre" placeholder="Title" onblur="verifTitre(this)" required="required" label="Title"/>
-        <t:input type="number" name="txtprix" id="prix" placeholder="Price" onblur="verifPrix(this)" required="required" label="Title"/>
+        <t:input type="number" name="txtprix" id="prix" placeholder="Price" onblur="verifPrix(this)" required="required" label="Price"/>
 
-        <div class="form-group">
+        <div class="form-group flex-center-center">
             <label class="control-label col-sm-2" >Owner</label>
             <div class="col-sm-5">
                 <select class="form-control " name="txtnomproprio" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">

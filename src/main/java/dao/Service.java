@@ -45,9 +45,9 @@ public class Service {
 	// Consultation des adherents
 	// Fabrique et renvoie une liste d'objets adherent contenant le resultat de
 	// la requete BDD
-	public List<Adherent> consulterListeAdherents() throws MonException {
+	public AdherentCRUDForm consulterListeAdherents() throws MonException {
 		String mysql = "select * from adherent";
-		return consulterListeAdherents(mysql);
+		return new AdherentCRUDForm(consulterListeAdherents(mysql));
 	}
 
 	private List<Adherent> consulterListeAdherents(String mysql) throws MonException {
@@ -120,7 +120,7 @@ public class Service {
 	// Fabrique et renvoie une liste d'objets oeuvres contenant le resultat de
 	// la requete BDD
 	public List<Oeuvrevente> consulterListeOeuvres() throws MonException {
-		String mysql = "SELECT  titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
+		String mysql = "SELECT  id_oeuvrevente, titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
 				" FROM `oeuvrevente` as x,`proprietaire` as y " +
 				"WHERE x.id_proprietaire = y.id_proprietaire ";
 		return consulterListeOeuvres(mysql);
@@ -145,13 +145,14 @@ public class Service {
 				Oeuvrevente unA = new Oeuvrevente();
 
 				// il faut redecouper la liste pour retrouver les lignes
-				unA.setTitreOeuvrevente(rs.get(index + 0).toString());
-				unA.setPrixOeuvrevente(Float.parseFloat(rs.get(index + 1).toString()));
-				unA.getProprietaire().setNomProprietaire(rs.get(index + 2).toString());
-				unA.getProprietaire().setPrenomProprietaire(rs.get(index + 3).toString());
+				unA.setIdOeuvrevente(Integer.parseInt(rs.get(index + 0).toString()));
+				unA.setTitreOeuvrevente(rs.get(index + 1).toString());
+				unA.setPrixOeuvrevente(Float.parseFloat(rs.get(index + 2).toString()));
+				unA.getProprietaire().setNomProprietaire(rs.get(index + 3).toString());
+				unA.getProprietaire().setPrenomProprietaire(rs.get(index + 4).toString());
 
 				// On incremente tous les 4 champs
-				index = index + 4;
+				index = index + 5;
 				mesOeuvres.add(unA);
 			}
 			return mesOeuvres;
@@ -223,8 +224,8 @@ public class Service {
 		}
 	}
 
-	public void supprimerOeuvre(String titre) throws MonException {
-		String mysql = "DELETE from oeuvrevente WHERE titre_oeuvrevente='" + titre + "'";
+	public void supprimerOeuvre(int id) throws MonException {
+		String mysql = "DELETE from oeuvrevente WHERE id_oeuvrevente=" + id;
 		supprimer(mysql);
 	}
 

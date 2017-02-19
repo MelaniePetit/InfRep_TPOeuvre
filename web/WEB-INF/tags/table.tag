@@ -1,23 +1,56 @@
-<%--<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>--%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%--<%@attribute name="headers"%>--%>
-<%--<%@attribute name="entities"%>--%>
-<%--<%@attribute name="table_body_tag" fragment="true" %>--%>
+<%@attribute name="entities" type="metier.AbstractCRUDForm" %>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <c:forEach var="col" items="${entities.getColumns()}">
+                <th><c:out value="${col}"/></th>
+            </c:forEach>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="row" begin="0" end="${entities.resultsSize() - 1}">
+            <tr>
+                <c:forEach var="column" begin="0" end="${entities.getNumberOfFields() - 1}">
+                    <td>${entities.getDataAt(row, column)}</td>
+                </c:forEach>
+
+                <td>
+                    <a href="${entities.getEditController()}=${entities.getId(row)}" type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></a>
+                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target=".deleteModal_${entities.getId(row)}"><i class="fa fa-times"></i></a>
+
+                        <%--Delete Modal--%>
+                    <div class="modal fade deleteModal_${entities.getId(row)}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">Deleting ${entities.getTypeName()}...</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Please note, this will <strong>permanently</strong> remove the work of art!
+                                        The effect is irremediable. Are you sure to perform this action? </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <a href="${entities.getDeleteController()}=${entities.getId(row)}">
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <%--End Of Modal--%>
+                </td>
+
+            </tr>
+        </c:forEach>
 
 
-<%--<table class="table table-bordered table-hover">--%>
-    <%--<thead>--%>
-        <%--<tr>--%>
-            <%--<c:forEach items="${entities}" var="entity" varStatus="count">--%>
-                <%--<th><c:out value="${entity.key}"/></th>--%>
-            <%--</c:forEach>--%>
-        <%--</tr>--%>
-    <%--</thead>--%>
-    <%--<tbody>--%>
-    <%--<c:forEach items="${entities}" var="entity" varStatus="count">--%>
-        <%--<c:out value="${entity.value}"/>--%>
-    <%--</c:forEach>--%>
-        <%--&lt;%&ndash;<jsp:invoke fragment="table_body_tag"/>&ndash;%&gt;--%>
-    <%--</tbody>--%>
-<%--</table>--%>
+
+    </tbody>
+</table>

@@ -5,6 +5,7 @@
 
 <t:layout title="ListOfWorksOfArt" contentTitle="Works Of Art\'s List">
     <jsp:attribute name="content_tag">
+        <%--<t:table entities="${mesOeuvres}"/>--%>
            <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -24,10 +25,10 @@
                             <td>${item.proprietaire.prenomProprietaire}</td>
                             <td>
                                 <button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button>
-                                <a type="button" class="btn btn-danger" data-toggle="modal" data-target=".deleteModal_${item.titreOeuvrevente}"><i class="fa fa-times"></i></a>
+                                <a type="button" class="btn btn-danger" data-toggle="modal" data-target=".deleteModal_${item.idOeuvrevente}"><i class="fa fa-times"></i></a>
 
                                 <%--Delete Modal--%>
-                                <div class="modal fade deleteModal_${item.titreOeuvrevente}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+                                <div class="modal fade deleteModal_${item.idOeuvrevente}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -40,7 +41,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                <a href="ListeOeuvres?action=suppOeuvre&titre=${item.titreOeuvrevente}">
+                                                <a href="ListeOeuvres?action=suppOeuvre&id=${item.idOeuvrevente}">
                                                     <button type="button" class="btn btn-danger">Delete</button>
                                                 </a>
                                             </div>
