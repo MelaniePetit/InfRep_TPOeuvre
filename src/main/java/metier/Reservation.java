@@ -1,8 +1,7 @@
 package metier;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 
 /**
@@ -17,6 +16,8 @@ public class Reservation implements Serializable {
 	private Oeuvrevente oeuvrevente;
 
 	public Reservation() {
+		oeuvrevente = new Oeuvrevente();
+		adherent = new Adherent();
 	}
 
 

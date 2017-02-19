@@ -18,8 +18,9 @@ public class Service {
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
 		try {
 			mysql = "insert into adherent  (nom_adherent,prenom_adherent,ville_adherent)  " + "values ('"
-					+ unAdherent.getNomAdherent();
-			mysql += "'" + ",'" + unAdherent.getPrenomAdherent() + "','" + unAdherent.getVilleAdherent() + "')";
+					+ unAdherent.getNomAdherent().toUpperCase()+"'"
+					+ ",'" + unAdherent.getPrenomAdherent()
+					+ "','" + unAdherent.getVilleAdherent() + "')";
 
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {
@@ -31,8 +32,8 @@ public class Service {
 	// Consultation d'un adherent par son numero
 	// Fabrique et renvoie un objet adherent contenant le resultat de la requete
 	// BDD
-	public Adherent consulterAdherent(int numero) throws MonException {
-		String mysql = "select * from adherent where numero_adherent=" + numero;
+	public Adherent consulterAdherent(String numero) throws MonException {
+		String mysql = "select * from adherent where id_adherent=" + numero;
 		List<Adherent> mesAdh = consulterListeAdherents(mysql);
 		if (mesAdh.isEmpty())
 			return null;
@@ -75,6 +76,23 @@ public class Service {
 		}
 	}
 
+	//Modification d'un adhérent
+
+	public void editAdherent(Adherent unAdherent, String numero) throws MonException {
+		String mysql;
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		System.out.println(numero);
+		System.out.println(unAdherent);
+
+		try {
+			mysql = "UPDATE adherent set nom_adherent='" + unAdherent.getNomAdherent().toUpperCase() + "',prenom_adherent='" + unAdherent.getPrenomAdherent() +
+					"',ville_adherent='" + unAdherent.getVilleAdherent() + "' WHERE id_adherent="+ numero;
+
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+	}
 	// Mise a jour des caracteristiques d'une oeuvre
 	// Le booleen indique s'il s'agit d'une nouvelle oeuvre, auquel cas on fait
 	// une creation
@@ -187,16 +205,18 @@ public class Service {
 		Object rs2;
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
 		try {
-			mysql = "select id_oeuvrevente from oeuvrevente where titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
+			mysql = "SELECT id_oeuvrevente FROM oeuvrevente WHERE titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
 			rs1 = DialogueBd.lecture(mysql);
-			mysql = "select id_adherent from adherent where nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
+			mysql = "SELECT id_adherent FROM adherent WHERE nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
 			rs2 = DialogueBd.lecture(mysql);
-			mysql = "insert into reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
+			mysql = "INSERT INTO reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
 					+ rs1.toString() + "','"
 					+ rs2.toString() + "','"
 					+ uneResa.getDate() + "','"
 					+ "confirmee" + "')";
 
+			unDialogueBd.insertionBD(mysql);
+			mysql = "UPDATE oeuvrevente SET etat_oeuvrevente = 'R' WHERE id_oeuvrevente='" + rs1.toString()+"'";
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {
 			throw e;
@@ -223,5 +243,6 @@ public class Service {
 		}
 
 	}
+
 
 }

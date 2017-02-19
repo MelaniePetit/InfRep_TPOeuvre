@@ -71,10 +71,9 @@ public class AjouterAdherentControleur extends HttpServlet {
                 unService.insertAdherent(unAdherent);
 
             } catch (MonException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            destinationPage = "/index.jsp";
+            destinationPage = "/ajouterAdherent.jsp";
         }
 
         else {

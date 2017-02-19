@@ -3,15 +3,15 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<t:layout title="ListOfMembers" contentTitle="List Of Members">
+<t:layout title="ListOfMembers" contentTitle="Members\' List">
 	<jsp:attribute name="content_tag">
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
-				<th class="hidden-xs">Numéro</th>
-				<th>Nom</th>
-				<th>Prénom</th>
-				<th>Ville</th>
+				<th class="hidden-xs">Id</th>
+				<th>Lastname</th>
+				<th>Firstname</th>
+				<th>City</th>
                 <th></th>
 			</tr>
 			</thead>
@@ -22,7 +22,7 @@
 						<td>${item.nomAdherent}</td>
 						<td>${item.prenomAdherent}</td>
 						<td>${item.villeAdherent}</td>
-						<td><button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button>
+						<td><a href="ListeAdherents?action=editAdherent&id=${item.idAdherent}"><button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button></a>
 							<a href="ListeAdherents?action=suppAdherent&id=${item.idAdherent}"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
 						</td>
 					</tr>

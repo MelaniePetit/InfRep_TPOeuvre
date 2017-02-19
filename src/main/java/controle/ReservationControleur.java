@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,12 +76,13 @@ public class ReservationControleur extends HttpServlet {
 			destinationPage = "/reservationOeuvre.jsp";
 		}
 		else if (INSERER_RESERVATION.equals(actionName)) {
+
 			try {
 				Reservation uneResa = new Reservation();
 				uneResa.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
-				DateFormat df = new SimpleDateFormat("JJ MM YYYY", Locale.FRENCH);
-				uneResa.setDate(df.parse(request.getParameter("txtdate")));
-				uneResa.getAdherent().setNomAdherent(request.getParameter("txtprix"));
+				DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRENCH);
+				Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
+				uneResa.setDate(date);
 
 				Service unService = new Service();
 				unService.insertReservation(uneResa);
