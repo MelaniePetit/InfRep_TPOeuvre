@@ -31,8 +31,8 @@ public class Service {
 	// Consultation d'un adherent par son numero
 	// Fabrique et renvoie un objet adherent contenant le resultat de la requete
 	// BDD
-	public Adherent consulterAdherent(int numero) throws MonException {
-		String mysql = "select * from adherent where numero_adherent=" + numero;
+	public Adherent consulterAdherent(String numero) throws MonException {
+		String mysql = "select * from adherent where id_adherent=" + numero;
 		List<Adherent> mesAdh = consulterListeAdherents(mysql);
 		if (mesAdh.isEmpty())
 			return null;
@@ -75,6 +75,21 @@ public class Service {
 		}
 	}
 
+	//Modification d'un adhérent
+
+	public void editAdherent(Adherent unAdherent, String numero) throws MonException {
+		String mysql;
+
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		try {
+			mysql = "update adherent set nom_adherent= '" + unAdherent.getNomAdherent() + "',prenom_adherent= '" + unAdherent.getPrenomAdherent() +
+					"',ville_adherent= '" + unAdherent.getVilleAdherent() + "' where id_adherent= "+ numero;
+
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+	}
 	// Mise a jour des caracteristiques d'une oeuvre
 	// Le booleen indique s'il s'agit d'une nouvelle oeuvre, auquel cas on fait
 	// une creation
