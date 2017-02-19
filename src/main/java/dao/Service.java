@@ -119,11 +119,11 @@ public class Service {
 	// Consultation des oeuvres
 	// Fabrique et renvoie une liste d'objets oeuvres contenant le resultat de
 	// la requete BDD
-	public List<Oeuvrevente> consulterListeOeuvres() throws MonException {
+	public OeuvreCRUDForm consulterListeOeuvres() throws MonException {
 		String mysql = "SELECT  id_oeuvrevente, titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
 				" FROM `oeuvrevente` as x,`proprietaire` as y " +
 				"WHERE x.id_proprietaire = y.id_proprietaire ";
-		return consulterListeOeuvres(mysql);
+		return new OeuvreCRUDForm(consulterListeOeuvres(mysql));
 	}
 
     public List<Oeuvrevente> consulterListeOeuvresDisponibles() throws MonException {
