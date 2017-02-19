@@ -18,8 +18,9 @@ public class Service {
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
 		try {
 			mysql = "insert into adherent  (nom_adherent,prenom_adherent,ville_adherent)  " + "values ('"
-					+ unAdherent.getNomAdherent();
-			mysql += "'" + ",'" + unAdherent.getPrenomAdherent() + "','" + unAdherent.getVilleAdherent() + "')";
+					+ unAdherent.getNomAdherent().toUpperCase()+"'"
+					+ ",'" + unAdherent.getPrenomAdherent()
+					+ "','" + unAdherent.getVilleAdherent() + "')";
 
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {

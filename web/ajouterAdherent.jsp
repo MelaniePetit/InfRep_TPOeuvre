@@ -4,24 +4,32 @@
 <t:layout title="AddMember" contentTitle="Add Member">
     <jsp:attribute name="content_tag">
         <div class="element">
+            <div class="alert alert-danger col-lg-4" id="erreur" style="display: none">
+                <button type="button" class="close">×</button>
+                <p>Veuillez remplir correctement tous les champs</p>
+            </div>
+            <div class="alert alert-success col-lg-4" id="reussite" style="display: none">
+                <button type="button" class="close">×</button>
+                <p>Le nouvel adhérent a été correctement ajouté ! </p>
+            </div>
             <div class="jumbotron">
-                <form  class="well form-horizontal" name='identification' method="post" action="AjouterAdherent?action=insererAdherent" onsubmit="return teste()">
+                <form  class="well form-horizontal" name='identification' method="post" action="AjouterAdherent?action=insererAdherent" onsubmit="return verifForm(this)">
                     <div class="form-group">
                         <label class="control-label col-sm-2" >Nom</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="txtnom" value=""  id ="nom" placeholder="Nom de l'adhérent" required >
+                            <input type="text" class="form-control" name="txtnom" value="" id ="nom" placeholder="Nom de l'adhérent" onblur="verifNom(this)" required >
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" >Prénom</label>
                         <div class="col-sm-5">
-                            <input type="text" name="txtprenom"  id ="prenom" class="form-control" placeholder="Prénom de l'adhérent" required >
+                            <input type="text" name="txtprenom"  id ="prenom" class="form-control" placeholder="Prénom de l'adhérent" onblur="verifPrenom(this)" required >
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" >Ville</label>
                         <div class="col-sm-5">
-                            <input type="text" name="txtville" id ="ville" class="form-control" placeholder="Ville de l'adhérent" required >
+                            <input type="text" name="txtville" id ="ville" class="form-control" placeholder="Ville de l'adhérent" onblur="verifVille(this)" required >
                         </div>
                     </div>
                     <!-- Boutons Ajouter -->
@@ -39,7 +47,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="javascripts_tag">
-        <script type="text/javascript" src="js/fonctControle.js"></script>
+        <script type="text/javascript" src="js/formAdherent.js"></script>
     </jsp:attribute>
 
 </t:layout>
