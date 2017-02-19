@@ -74,7 +74,7 @@ public class AjouterAdherentControleur extends HttpServlet {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            destinationPage = "/index.jsp";
+            destinationPage = "/ajouterAdherent.jsp";
         }
 
         else {
