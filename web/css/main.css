@@ -2,7 +2,7 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: #DFDFDF;
-  overflow: hidden; }
+  overflow-x: hidden; }
 
 a, a:hover, a:active, a:focus {
   text-decoration: none;
@@ -14,6 +14,12 @@ h1, h2, h3, h4, h5, h6 {
 #MainContainer {
   position: relative;
   min-height: 92vh; }
+
+@media (max-width: 430px) {
+  #ContentContainer {
+    padding: 0; }
+    #ContentContainer div:nth-child(1) {
+      padding: 2px; } }
 
 i.clickable {
   cursor: pointer; }
@@ -206,34 +212,12 @@ header {
     transition: all 0.5s ease 0s; }
     header .back-to-home .fa-arrow-left:hover {
       color: #960000; }
-  header .open-close-menu {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    color: #960000; }
   header h1 {
     margin: 0;
     font-family: "Leckerli One", cursive; }
     @media screen and (max-width: 375px) {
       header h1 {
         font-size: 25px; } }
-
-#MenuContainer {
-  background-color: red;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30%;
-  height: 100%;
-  -webkit-transition: all 0.5s ease 0s;
-  -moz-transition: all 0.5s ease 0s;
-  -o-transition: all 0.5s ease 0s;
-  -ms-transition: all 0.5s ease 0s;
-  transition: all 0.5s ease 0s;
-  transform: translateX(100%); }
-  #MenuContainer.slide {
-    transform: translateX(0%); }
 
 table {
   margin-top: 50px; }

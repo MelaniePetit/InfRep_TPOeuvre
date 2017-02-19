@@ -8,7 +8,7 @@
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
-				<th>Numéro</th>
+				<th class="hidden-xs">Numéro</th>
 				<th>Nom</th>
 				<th>Prénom</th>
 				<th>Ville</th>
@@ -18,7 +18,7 @@
 			<tbody>
 			<c:forEach items="${mesAdherents}" var="item">
 					<tr>
-						<td>${item.idAdherent}</td>
+						<td class="hidden-xs">${item.idAdherent}</td>
 						<td>${item.nomAdherent}</td>
 						<td>${item.prenomAdherent}</td>
 						<td>${item.villeAdherent}</td>

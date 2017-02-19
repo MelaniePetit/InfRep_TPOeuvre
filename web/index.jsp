@@ -10,7 +10,7 @@
             <h2 class="menu-label"></h2>
             <div id="brand">ArtZone</div>
             <div id="logo" class="flex-center-center col-xs-12 col-md-8">
-                <jsp:include page="/WEB-INF/tags/circle_menu_layout.jsp"/>
+                <jsp:include page="/WEB-INF/includes/circle_menu_layout.jsp"/>
             </div>
         </div>
         <div id="overlay"></div>

@@ -10,23 +10,13 @@
         <header class="flex-center-center">
             <a href="index.jsp" class="back-to-home flex-center-center"><i class="fa fa-arrow-left fa-2x"></i></a>
             <h1>${contentTitle}</h1>
-            <a class="open-close-menu flex-center-center"><i class="fa fa-bars fa-2x clickable"></i></a>
         </header>
 
         <div id="MainContainer">
-            <div id="ContentContainer">
-                <div class="container">
-                    <div class="col-xs-12">
-                        <jsp:invoke fragment="content_tag"/>
-                    </div>
+            <div id="ContentContainer" class="container">
+                <div class="col-xs-12">
+                    <jsp:invoke fragment="content_tag"/>
                 </div>
-            </div>
-            <div id="MenuContainer">
-                <a><h3>azerty</h3></a>
-                <a><h3>azerty</h3></a>
-                <a><h3>azerty</h3></a>
-                <a><h3>azerty</h3></a>
-                <a><h3>azerty</h3></a>
             </div>
         </div>
     </jsp:attribute>
