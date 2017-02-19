@@ -14,30 +14,36 @@
             <div class="jumbotron">
                 <form  class="well form-horizontal" name='identification' method="post" action="ListeAdherents?action=modifierAdherent" onsubmit="return teste()">
                     <div class="form-group">
-                        <label class="control-label col-sm-2" >Last Name</label>
+                        <label class="control-label col-sm-2" >Number</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="nom" id ="nom" required >
+                            <input type="text" class="form-control" name="id" id ="id" value='${monAdherent.idAdherent}'  readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" >First Name</label>
                         <div class="col-sm-5">
-                            <input type="text" name="prenom"  id ="prenom" class="form-control" placeholder="Firstname" required >
+                            <input type="text" class="form-control" name="nom" id ="nom" value='${monAdherent.nomAdherent}' required >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" >Last Name</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="prenom"  id ="prenom" value='${monAdherent.prenomAdherent}' class="form-control" placeholder="Prénom de l'adhérent" required >
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" >City</label>
                         <div class="col-sm-5">
-                            <input type="text" name="ville" id ="ville" class="form-control" placeholder="City" required >
+                            <input type="text" name="ville" id ="ville" class="form-control" value='${monAdherent.villeAdherent}' placeholder="Ville de l'adhérent" required >
                         </div>
                     </div>
                     <!-- Boutons Modifier -->
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-2">
-                            <button type="submit" class="btn btn-info">Edit</button>
+                            <button type="submit" class="btn btn-info">Modifier</button>
                         </div>
                         <div>
-                            <a class="btn btn-default" href="index.jsp">Return</a>
+                            <a class="btn btn-default" href="index.jsp">Retour</a>
                         </div>
                     </div>
                 </form>

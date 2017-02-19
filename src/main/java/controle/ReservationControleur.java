@@ -76,7 +76,6 @@ public class ReservationControleur extends HttpServlet {
 			destinationPage = "/reservationOeuvre.jsp";
 		}
 		else if (INSERER_RESERVATION.equals(actionName)) {
-			System.out.println(request.getParameter("txtdate"));
 
 			try {
 				Reservation uneResa = new Reservation();

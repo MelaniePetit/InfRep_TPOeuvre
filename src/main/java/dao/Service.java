@@ -80,11 +80,13 @@ public class Service {
 
 	public void editAdherent(Adherent unAdherent, String numero) throws MonException {
 		String mysql;
-
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		System.out.println(numero);
+		System.out.println(unAdherent);
+
 		try {
-			mysql = "update adherent set nom_adherent= '" + unAdherent.getNomAdherent() + "',prenom_adherent= '" + unAdherent.getPrenomAdherent() +
-					"',ville_adherent= '" + unAdherent.getVilleAdherent() + "' where id_adherent= "+ numero;
+			mysql = "UPDATE adherent set nom_adherent='" + unAdherent.getNomAdherent().toUpperCase() + "',prenom_adherent='" + unAdherent.getPrenomAdherent() +
+					"',ville_adherent='" + unAdherent.getVilleAdherent() + "' WHERE id_adherent="+ numero;
 
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {
@@ -241,5 +243,6 @@ public class Service {
 		}
 
 	}
+
 
 }

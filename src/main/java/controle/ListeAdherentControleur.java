@@ -25,6 +25,7 @@ public class ListeAdherentControleur extends HttpServlet{
     private static final String EDIT = "editAdherent"; // ouvre la page d'édition
     private static final String MODIFIER = "modifierAdherent"; //gère l'envoi des données
     private static final String ID = "id";
+    private String id ;
 
     private static final String ERROR_KEY = "messageErreur";
     private static final String ERROR_PAGE = "/erreur.jsp";
@@ -89,25 +90,34 @@ public class ListeAdherentControleur extends HttpServlet{
 
             destinationPage = "/listerAdherent.jsp";
         }
-        String id = "3"; //c'est la que ca ne marche pas + redirection
+        String id = request.getParameter(ID);
         if (EDIT.equals(actionName)) {
-            id = request.getParameter(ID);
+            try {
+                Service unService = new Service();
+                request.setAttribute("monAdherent", unService.consulterAdherent(id));
+            } catch (MonException e) {
+                e.printStackTrace();
+            }
+
             destinationPage = "/modifierAdherent.jsp";
         }
-        if (MODIFIER.equals(actionName)) {
+
+        else if(MODIFIER.equals(actionName)) {
             try {
                 Adherent unAdherent = new Adherent();
                 unAdherent.setNomAdherent(request.getParameter("nom"));
                 unAdherent.setPrenomAdherent(request.getParameter("prenom"));
                 unAdherent.setVilleAdherent(request.getParameter("ville"));
+
                 Service unService = new Service();
-                unService.editAdherent(unAdherent,id);
+                System.out.println(request.getParameter("id"));
+                unService.editAdherent(unAdherent, request.getParameter("id"));
 
             } catch (MonException e) {
                 e.printStackTrace();
             }
-
             destinationPage = "/index.jsp";
+
         }
         else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";
