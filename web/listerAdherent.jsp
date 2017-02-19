@@ -22,7 +22,7 @@
 						<td>${item.nomAdherent}</td>
 						<td>${item.prenomAdherent}</td>
 						<td>${item.villeAdherent}</td>
-						<td><button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button>
+						<td><a href="ListeAdherents?action=editAdherent&id=${item.idAdherent}"><button type="button" class="btn btn-primary "><i class="fa fa-pencil"></i></button></a>
 							<a href="ListeAdherents?action=suppAdherent&id=${item.idAdherent}"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
 						</td>
 					</tr>

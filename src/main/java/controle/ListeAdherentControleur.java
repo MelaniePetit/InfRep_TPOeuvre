@@ -2,6 +2,7 @@ package controle;
 
 import dao.Service;
 import erreurs.MonException;
+import metier.Adherent;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,6 +22,8 @@ public class ListeAdherentControleur extends HttpServlet{
     private static final String ACTION_TYPE = "action";
 
     private static final String SUPPRIMER = "suppAdherent";
+    private static final String EDIT = "editAdherent"; // ouvre la page d'édition
+    private static final String MODIFIER = "modifierAdherent"; //gère l'envoi des données
     private static final String ID = "id";
 
     private static final String ERROR_KEY = "messageErreur";
@@ -85,6 +88,26 @@ public class ListeAdherentControleur extends HttpServlet{
             }
 
             destinationPage = "/listerAdherent.jsp";
+        }
+        String id = "3"; //c'est la que ca ne marche pas + redirection
+        if (EDIT.equals(actionName)) {
+            id = request.getParameter(ID);
+            destinationPage = "/modifierAdherent.jsp";
+        }
+        if (MODIFIER.equals(actionName)) {
+            try {
+                Adherent unAdherent = new Adherent();
+                unAdherent.setNomAdherent(request.getParameter("nom"));
+                unAdherent.setPrenomAdherent(request.getParameter("prenom"));
+                unAdherent.setVilleAdherent(request.getParameter("ville"));
+                Service unService = new Service();
+                unService.editAdherent(unAdherent,id);
+
+            } catch (MonException e) {
+                e.printStackTrace();
+            }
+
+            destinationPage = "/index.jsp";
         }
         else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";
