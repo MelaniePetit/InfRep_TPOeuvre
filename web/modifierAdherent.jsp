@@ -14,30 +14,30 @@
             <div class="jumbotron">
                 <form  class="well form-horizontal" name='identification' method="post" action="ListeAdherents?action=modifierAdherent" onsubmit="return teste()">
                     <div class="form-group">
-                        <label class="control-label col-sm-2" >Nom</label>
+                        <label class="control-label col-sm-2" >Last Name</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="nom" value=""  id ="nom" value="Un nom au hasard" required >
+                            <input type="text" class="form-control" name="nom" id ="nom" required >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" >Prénom</label>
+                        <label class="control-label col-sm-2" >First Name</label>
                         <div class="col-sm-5">
-                            <input type="text" name="prenom"  id ="prenom" class="form-control" placeholder="Prénom de l'adhérent" required >
+                            <input type="text" name="prenom"  id ="prenom" class="form-control" placeholder="Firstname" required >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" >Ville</label>
+                        <label class="control-label col-sm-2" >City</label>
                         <div class="col-sm-5">
-                            <input type="text" name="ville" id ="ville" class="form-control" placeholder="Ville de l'adhérent" required >
+                            <input type="text" name="ville" id ="ville" class="form-control" placeholder="City" required >
                         </div>
                     </div>
                     <!-- Boutons Modifier -->
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-2">
-                            <button type="submit" class="btn btn-info">Modifier</button>
+                            <button type="submit" class="btn btn-info">Edit</button>
                         </div>
                         <div>
-                            <a class="btn btn-default" href="index.jsp">Retour</a>
+                            <a class="btn btn-default" href="index.jsp">Return</a>
                         </div>
                     </div>
                 </form>

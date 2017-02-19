@@ -8,10 +8,10 @@
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
-				<th>Numéro</th>
-				<th>Nom</th>
-				<th>Prénom</th>
-				<th>Ville</th>
+				<th>Id</th>
+				<th>Lastname</th>
+				<th>Firstname</th>
+				<th>City</th>
                 <th></th>
 			</tr>
 			</thead>
