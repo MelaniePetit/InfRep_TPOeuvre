@@ -120,11 +120,15 @@ public class Service {
 	// Fabrique et renvoie une liste d'objets oeuvres contenant le resultat de
 	// la requete BDD
 	public Oeuvrevente consulterOeuvre(String numero) throws MonException {
-		String mysql = "select * from oeuvrevente where id_oeuvrevente=" + numero;
+		String mysql = "SELECT  id_oeuvrevente, titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
+				" FROM `oeuvrevente` as x,`proprietaire` as y " +
+				"WHERE x.id_proprietaire = y.id_proprietaire " +
+				"AND id_oeuvrevente = " + numero;
 		List<Oeuvrevente> mesO = consulterListeOeuvres(mysql);
 		if (mesO.isEmpty())
 			return null;
 		else {
+			System.out.println(mesO.get(0).getIdOeuvrevente());
 			return mesO.get(0);
 		}
 	}
@@ -160,7 +164,7 @@ public class Service {
 				unA.getProprietaire().setNomProprietaire(rs.get(index + 3).toString());
 				unA.getProprietaire().setPrenomProprietaire(rs.get(index + 4).toString());
 
-				// On incremente tous les 4 champs
+				// On incremente tous les 5 champs
 				index = index + 5;
 				mesOeuvres.add(unA);
 			}
