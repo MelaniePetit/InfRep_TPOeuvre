@@ -40,10 +40,10 @@
                     <!-- Boutons Modifier -->
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-2">
-                            <button type="submit" class="btn btn-info">Modifier</button>
+                            <button type="submit" class="btn btn-info">Edit</button>
                         </div>
                         <div>
-                            <a class="btn btn-default" href="index.jsp">Retour</a>
+                            <a class="btn btn-default" href="index.jsp">Return</a>
                         </div>
                     </div>
                 </form>

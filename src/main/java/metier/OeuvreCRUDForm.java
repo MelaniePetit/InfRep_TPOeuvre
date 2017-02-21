@@ -22,7 +22,7 @@ public class OeuvreCRUDForm extends AbstractCRUDForm<Oeuvrevente> {
     }
 
     public String getEditController() {
-        return "ListeOeuvres?action=suppOeuvre&id";
+        return "ListeOeuvres?action=editOeuvre&id";
     }
 
     public String getDeleteController() {

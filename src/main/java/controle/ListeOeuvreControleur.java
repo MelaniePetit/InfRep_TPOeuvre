@@ -2,6 +2,8 @@ package controle;
 
 import dao.Service;
 import erreurs.MonException;
+import metier.Adherent;
+import metier.Oeuvrevente;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,6 +23,8 @@ public class ListeOeuvreControleur extends HttpServlet {
 
     private static final String LISTER = "listerOeuvre";
     private static final String SUPPRIMER = "suppOeuvre";
+    private static final String EDIT = "editOeuvre";
+    private static final String MODIFIER = "modifierOeuvre";
     private static final String ID = "id";
 
     private static final String ERROR_KEY = "messageErreur";
@@ -84,6 +88,35 @@ public class ListeOeuvreControleur extends HttpServlet {
             }
 
             destinationPage = "/listerOeuvre.jsp";
+        }
+        String id = request.getParameter(ID);
+        if (EDIT.equals(actionName)) {
+            try {
+                Service unService = new Service();
+                request.setAttribute("monOeuvre", unService.consulterOeuvre(id));
+            } catch (MonException e) {
+                e.printStackTrace();
+            }
+
+            destinationPage = "/modifierOeuvre.jsp";
+        }
+
+        else if(MODIFIER.equals(actionName)) {
+            try {
+                Oeuvrevente uneOeuvre = new Oeuvrevente();
+                uneOeuvre.setTitreOeuvrevente(request.getParameter("ttitre"));
+                //uneOeuvre.setPrixOeuvrevente(request.getParameter("tprix"));
+                //uneOeuvre.setProprietaire(request.getParameter("ville"));
+
+                Service unService = new Service();
+                System.out.println(request.getParameter("id"));
+                unService.editOeuvre(uneOeuvre, request.getParameter("id"));
+
+            } catch (MonException e) {
+                e.printStackTrace();
+            }
+            destinationPage = "/index.jsp";
+
         }
         else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";

@@ -13,7 +13,7 @@ $(document).ready(function() {
                         min: 2,
                     },
                     notEmpty: {
-                        message: 'Merci de renseigner votre nom'
+                        message: 'Please, give your last name'
                     }
                 }
             },
@@ -23,7 +23,7 @@ $(document).ready(function() {
                         min: 2,
                     },
                     notEmpty: {
-                        message: 'Merci de renseigner votre prenom'
+                        message: 'Please, give your first name'
                     }
                 }
             },
@@ -33,7 +33,7 @@ $(document).ready(function() {
                         min: 4,
                     },
                     notEmpty: {
-                        message: 'Merci de renseigner votre lieu de residence'
+                        message: 'Please, give your city'
                     }
                 }
             }

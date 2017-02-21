@@ -119,6 +119,15 @@ public class Service {
 	// Consultation des oeuvres
 	// Fabrique et renvoie une liste d'objets oeuvres contenant le resultat de
 	// la requete BDD
+	public Oeuvrevente consulterOeuvre(String numero) throws MonException {
+		String mysql = "select * from oeuvrevente where id_oeuvrevente=" + numero;
+		List<Oeuvrevente> mesO = consulterListeOeuvres(mysql);
+		if (mesO.isEmpty())
+			return null;
+		else {
+			return mesO.get(0);
+		}
+	}
 	public OeuvreCRUDForm consulterListeOeuvres() throws MonException {
 		String mysql = "SELECT  id_oeuvrevente, titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
 				" FROM `oeuvrevente` as x,`proprietaire` as y " +
@@ -160,7 +169,23 @@ public class Service {
 			throw new MonException(exc.getMessage(), "systeme");
 		}
 	}
+	//Modification d'une oeuvre
 
+	public void editOeuvre(Oeuvrevente uneOeuvre, String numero) throws MonException {
+		String mysql;
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		System.out.println(numero);
+		System.out.println(uneOeuvre);
+
+		try {
+			mysql = "UPDATE oeuvrevente set titre_oeuvrevente='" + uneOeuvre.getTitreOeuvrevente() + "',prix_oeuvrevente='" + uneOeuvre.getPrixOeuvrevente() +
+					"' WHERE id_oeuvrevente="+ numero;
+
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+	}
     // Consultation des proprietaire
     // Fabrique et renvoie une liste d'objets proprietaire contenant le resultat de
     // la requete BDD
