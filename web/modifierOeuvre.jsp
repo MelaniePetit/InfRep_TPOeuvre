@@ -10,7 +10,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<t:form title="EditWorkOfArt" contentTitle="Edit Work Of Art" action="ListeOeuvres?action=editOeuvre" typeOfEntity="work of art" method="post">
+<t:form title="EditWorkOfArt" contentTitle="Edit Work Of Art" action="ListeOeuvres?action=modifierOeuvre" typeOfEntity="work of art" method="post">
     <jsp:attribute name="form_tag">
         <t:input type="number" name="tid" value="${monOeuvre.idOeuvrevente}" id="id" placeholder="Id" onblur="verifId(this)" required="readonly" label="Id"/>
         <t:input type="text" name="ttitre" value="${monOeuvre.titreOeuvrevente}" id="titre" placeholder="Title" onblur="verifTitre(this)" required="required" label="Title"/>
