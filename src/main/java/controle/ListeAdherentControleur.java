@@ -65,7 +65,7 @@ public class ListeAdherentControleur extends HttpServlet{
             try {
 
                 Service unService = new Service();
-                request.setAttribute("mesAdherents", unService.consulterListeAdherents());
+                request.setAttribute("mesAdherents", unService.consulterListeAdherentsCRUD());
 
             } catch (MonException e) {
                 // TODO Auto-generated catch block
@@ -83,7 +83,7 @@ public class ListeAdherentControleur extends HttpServlet{
                 request.setAttribute("flashMessage_success", "The Member has been successfully removed");
 
                 unService = new Service();
-                request.setAttribute("mesAdherents", unService.consulterListeAdherents());
+                request.setAttribute("mesAdherents", unService.consulterListeAdherentsCRUD());
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The Member can't be remove");

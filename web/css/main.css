@@ -221,12 +221,12 @@ header {
       header h1 {
         font-size: 25px; } }
 
-table thead {
+table.table-custom thead {
   background-color: #960000;
   color: whitesmoke; }
-table tbody {
+table.table-custom tbody {
   background-color: white; }
-  table tbody tr:hover {
+  table.table-custom tbody tr:hover {
     background-color: rgba(150, 0, 0, 0.5); }
 
 .form .well {

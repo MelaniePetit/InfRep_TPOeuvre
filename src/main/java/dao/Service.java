@@ -47,9 +47,14 @@ public class Service {
 	// Consultation des adherents
 	// Fabrique et renvoie une liste d'objets adherent contenant le resultat de
 	// la requete BDD
-	public AdherentCRUDForm consulterListeAdherents() throws MonException {
+	public AdherentCRUDForm consulterListeAdherentsCRUD() throws MonException {
 		String mysql = "select * from adherent";
 		return new AdherentCRUDForm(consulterListeAdherents(mysql));
+	}
+
+	public List<Adherent> consulterListeAdherents() throws MonException {
+		String mysql = "select * from adherent";
+		return consulterListeAdherents(mysql);
 	}
 
 	private List<Adherent> consulterListeAdherents(String mysql) throws MonException {
@@ -134,15 +139,22 @@ public class Service {
 			return mesO.get(0);
 		}
 	}
-	public OeuvreCRUDForm consulterListeOeuvres() throws MonException {
+	public OeuvreCRUDForm consulterListeOeuvresCRUD() throws MonException {
 		String mysql = "SELECT  id_oeuvrevente, titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
 				" FROM `oeuvrevente` as x,`proprietaire` as y " +
 				"WHERE x.id_proprietaire = y.id_proprietaire ";
 		return new OeuvreCRUDForm(consulterListeOeuvres(mysql));
 	}
 
+	public List<Oeuvrevente> consulterListeOeuvres() throws MonException {
+		String mysql = "SELECT  id_oeuvrevente, titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
+				" FROM `oeuvrevente` as x,`proprietaire` as y " +
+				"WHERE x.id_proprietaire = y.id_proprietaire ";
+		return consulterListeOeuvres(mysql);
+	}
+
     public List<Oeuvrevente> consulterListeOeuvresDisponibles() throws MonException {
-        String mysql = "SELECT  titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
+        String mysql = "SELECT  id_oeuvrevente, titre_oeuvrevente, prix_oeuvrevente, nom_proprietaire, prenom_proprietaire" +
                 " FROM `oeuvrevente` as x,`proprietaire` as y " +
                 "WHERE x.id_proprietaire = y.id_proprietaire AND x.etat_oeuvrevente = 'L' ";
         return consulterListeOeuvres(mysql);

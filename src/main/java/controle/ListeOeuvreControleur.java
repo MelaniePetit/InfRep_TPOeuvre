@@ -65,7 +65,7 @@ public class ListeOeuvreControleur extends HttpServlet {
             try {
 
                 Service unService = new Service();
-                request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
+                request.setAttribute("mesOeuvres", unService.consulterListeOeuvresCRUD());
 
             } catch (MonException e) {
                 e.printStackTrace();
@@ -82,7 +82,7 @@ public class ListeOeuvreControleur extends HttpServlet {
                 request.setAttribute("flashMessage_success", "The Work of art has been successfully removed");
 
                 unService = new Service();
-                request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
+                request.setAttribute("mesOeuvres", unService.consulterListeOeuvresCRUD());
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The Work of art can't be remove");

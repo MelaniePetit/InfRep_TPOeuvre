@@ -80,13 +80,12 @@ public class ReservationControleur extends HttpServlet {
 			try {
 				Reservation uneResa = new Reservation();
 				uneResa.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
-				DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRENCH);
+				DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
 				Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
 				uneResa.setDate(date);
 
 				Service unService = new Service();
 				unService.insertReservation(uneResa);
-
 
 			} catch (MonException e) {
 				// TODO Auto-generated catch block

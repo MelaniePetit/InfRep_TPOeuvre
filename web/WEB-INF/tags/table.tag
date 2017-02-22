@@ -1,9 +1,9 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@attribute name="entities" type="metier.AbstractCRUDForm" %>
+<%@attribute name="entities" type="metier.CRUD.AbstractCRUDForm" %>
 
-<table class="table table-bordered table-hover">
+<table class="table-custom table table-bordered table-hover">
     <thead>
         <tr>
             <c:forEach var="col" items="${entities.getColumns()}">

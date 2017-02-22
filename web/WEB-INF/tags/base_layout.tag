@@ -14,6 +14,7 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Leckerli+One" rel="stylesheet">
         <link rel="stylesheet"  href="lib/bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet"  href="lib/bootstrap-datepicker-1.6.4/css/bootstrap-datepicker.min.css"/>
         <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.css">
         <link rel="stylesheet" href="css/main.css">
         <title>${title}</title>
