@@ -4,6 +4,8 @@ import erreurs.MonException;
 import java.util.*;
 
 import metier.*;
+import metier.CRUD.AdherentCRUDForm;
+import metier.CRUD.OeuvreCRUDForm;
 import persistance.*;
 
 public class Service {

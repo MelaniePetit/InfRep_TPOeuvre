@@ -1,6 +1,7 @@
-package metier;
+package metier.CRUD;
 
 import com.mysql.jdbc.Messages;
+import metier.Adherent;
 
 import java.util.List;
 

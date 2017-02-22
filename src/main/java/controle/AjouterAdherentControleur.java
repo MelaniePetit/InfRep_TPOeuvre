@@ -70,12 +70,14 @@ public class AjouterAdherentControleur extends HttpServlet {
                 Service unService = new Service();
                 unService.insertAdherent(unAdherent);
 
+                request.setAttribute("flashMessage_success", "The Member " + unAdherent.getPrenomAdherent() + " " + unAdherent.getNomAdherent() + " has been successfully added");
+
             } catch (MonException e) {
+                request.setAttribute("flashMessage_error", "Error : The Member can't be add");
                 e.printStackTrace();
             }
             destinationPage = "/ajouterAdherent.jsp";
         }
-
         else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";
             request.setAttribute(ERROR_KEY, messageErreur);

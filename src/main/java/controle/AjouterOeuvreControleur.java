@@ -78,12 +78,14 @@ public class AjouterOeuvreControleur extends HttpServlet {
                 Service unService = new Service();
                 unService.insertOeuvre(uneOeuvre);
 
+                request.setAttribute("flashMessage_success", "The Work of art '" + uneOeuvre.getTitreOeuvrevente() + "' has been successfully added");
 
             } catch (MonException e) {
                 // TODO Auto-generated catch block
+                request.setAttribute("flashMessage_error", "Error : The Work of art can't be add");
                 e.printStackTrace();
             }
-            destinationPage = "/index.jsp";
+            destinationPage = "/ajouterOeuvre.jsp";
         }
 
         else {

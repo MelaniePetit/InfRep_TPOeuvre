@@ -79,11 +79,13 @@ public class ListeOeuvreControleur extends HttpServlet {
 
                 Service unService = new Service();
                 unService.supprimerOeuvre(id);
+                request.setAttribute("flashMessage_success", "The Work of art has been successfully removed");
 
                 unService = new Service();
                 request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
 
             } catch (MonException e) {
+                request.setAttribute("flashMessage_error", "Error : The Work of art can't be remove");
                 e.printStackTrace();
             }
 

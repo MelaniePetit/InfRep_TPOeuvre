@@ -1,4 +1,4 @@
-package metier;
+package metier.CRUD;
 
 import java.io.Serializable;
 import java.util.Arrays;

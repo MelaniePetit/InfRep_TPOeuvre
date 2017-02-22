@@ -80,11 +80,13 @@ public class ListeAdherentControleur extends HttpServlet{
 
                 Service unService = new Service();
                 unService.supprimerAdherent(id);
+                request.setAttribute("flashMessage_success", "The Member has been successfully removed");
 
                 unService = new Service();
                 request.setAttribute("mesAdherents", unService.consulterListeAdherents());
 
             } catch (MonException e) {
+                request.setAttribute("flashMessage_error", "Error : The Member can't be remove");
                 e.printStackTrace();
             }
 
