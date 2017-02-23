@@ -96,11 +96,12 @@ public class ListeOeuvreControleur extends HttpServlet {
             try {
                 Service unService = new Service();
                 request.setAttribute("monOeuvre", unService.consulterOeuvre(id));
+                request.setAttribute("edit", true);
             } catch (MonException e) {
                 e.printStackTrace();
             }
 
-            destinationPage = "/modifierOeuvre.jsp";
+            destinationPage = "/actionWorkOfArt.jsp";
         }
 
         else if(MODIFIER.equals(actionName)) {

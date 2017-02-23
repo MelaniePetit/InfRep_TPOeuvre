@@ -66,14 +66,14 @@ public class AjouterOeuvreControleur extends HttpServlet {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            destinationPage = "/ajouterOeuvre.jsp";
+            destinationPage = "/actionWorkOfArt.jsp";
         }
         else if (INSERER_OEUVRE.equals(actionName)) {
             try {
                 Oeuvrevente uneOeuvre = new Oeuvrevente();
-                uneOeuvre.setTitreOeuvrevente(request.getParameter("txttitre"));
-                uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("txtprix")));
-                uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("txtnomproprio"));
+                uneOeuvre.setTitreOeuvrevente(request.getParameter("titre"));
+                uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("prix")));
+                uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("nomproprio"));
 
                 Service unService = new Service();
                 unService.insertOeuvre(uneOeuvre);
@@ -85,7 +85,7 @@ public class AjouterOeuvreControleur extends HttpServlet {
                 request.setAttribute("flashMessage_error", "Error : The Work of art can't be add");
                 e.printStackTrace();
             }
-            destinationPage = "/ajouterOeuvre.jsp";
+            destinationPage = "/actionWorkOfArt.jsp";
         }
 
         else {

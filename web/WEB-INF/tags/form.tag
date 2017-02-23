@@ -32,7 +32,7 @@
 
                     <!-- Boutons Ajouter -->
                     <div class="form-group flex-center-center">
-                        <button type="submit" class="btn btn-info">${edit=="true" ? 'Edit ' : 'Add '}${typeOfEntity}</button>
+                        <button type="submit" class="btn btn-info">${edit=='true' ? "Edit " : "Add "}${typeOfEntity}</button>
                         <a class="btn btn-default" href="index.jsp">Cancel</a>
                     </div>
                 </form>

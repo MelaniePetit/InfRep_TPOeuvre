@@ -59,14 +59,14 @@ public class AjouterAdherentControleur extends HttpServlet {
 
         if (AJOUTER_ADHERENT.equals(actionName)) {
 
-            destinationPage = "/ajouterAdherent.jsp";
+            destinationPage = "/actionMember.jsp";
         }
         else if (INSERER_ADHERENT.equals(actionName)) {
             try {
                 Adherent unAdherent = new Adherent();
-                unAdherent.setNomAdherent(request.getParameter("txtnom"));
-                unAdherent.setPrenomAdherent(request.getParameter("txtprenom"));
-                unAdherent.setVilleAdherent(request.getParameter("txtville"));
+                unAdherent.setNomAdherent(request.getParameter("nom"));
+                unAdherent.setPrenomAdherent(request.getParameter("prenom"));
+                unAdherent.setVilleAdherent(request.getParameter("ville"));
                 Service unService = new Service();
                 unService.insertAdherent(unAdherent);
 
@@ -76,7 +76,7 @@ public class AjouterAdherentControleur extends HttpServlet {
                 request.setAttribute("flashMessage_error", "Error : The Member can't be add");
                 e.printStackTrace();
             }
-            destinationPage = "/ajouterAdherent.jsp";
+            destinationPage = "/actionMember.jsp";
         }
         else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";
