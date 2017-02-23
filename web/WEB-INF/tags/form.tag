@@ -9,6 +9,11 @@
 <%@attribute name="typeOfEntity"%>
 
 <t:layout title="${title}" contentTitle="${contentTitle}">
+
+    <jsp:attribute name="stylesheet_tag">
+        <link rel="stylesheet"  href="lib/bootstrap-datepicker-1.6.4/css/bootstrap-datepicker.min.css"/>
+    </jsp:attribute>
+
     <jsp:attribute name="content_tag">
         <div class="form">
             <div class="alert alert-danger col-lg-4" id="erreur" style="display: none">

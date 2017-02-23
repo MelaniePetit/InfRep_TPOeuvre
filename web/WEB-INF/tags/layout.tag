@@ -3,10 +3,16 @@
 
 <%@attribute name="content_tag" fragment="true" %>
 <%@attribute name="javascripts_tag" fragment="true" %>
+<%@attribute name="stylesheet_tag" fragment="true" %>
 <%@attribute name="contentTitle"%>
 <%@attribute name="title"%>
 
 <t:base_layout title="ArtZone | ${title}">
+
+    <jsp:attribute name="stylesheet_tag">
+        <jsp:invoke fragment="stylesheet_tag"/>
+    </jsp:attribute>
+
     <jsp:attribute name="body_tag">
         <header class="flex-center-center">
             <a href="index.jsp" class="back-to-home flex-center-center"><i class="fa fa-arrow-left fa-2x"></i></a>
@@ -15,7 +21,7 @@
 
         <div id="MainContainer">
             <div id="ContentContainer" class="container">
-                <div class="col-xs-12">
+                <div class="col-xs-12" style="overflow-y: auto;">
                     <c:if test="${flashMessage_success != null}">
                         <div class="alert alert-success">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

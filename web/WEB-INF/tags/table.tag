@@ -3,7 +3,7 @@
 
 <%@attribute name="entities" type="metier.CRUD.AbstractCRUDForm" %>
 
-<table class="table-custom table table-bordered table-hover">
+<table id="DataTable" class="table-custom table table-bordered table-hover data-table">
     <thead>
         <tr>
             <c:forEach var="col" items="${entities.getColumns()}">
