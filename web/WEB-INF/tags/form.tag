@@ -5,6 +5,7 @@
 <%@attribute name="contentTitle"%>
 <%@attribute name="title"%>
 <%@attribute name="action"%>
+<%@attribute name="edit"%>
 <%@attribute name="method"%>
 <%@attribute name="typeOfEntity"%>
 
@@ -31,7 +32,7 @@
 
                     <!-- Boutons Ajouter -->
                     <div class="form-group flex-center-center">
-                        <button type="submit" class="btn btn-info">Add ${typeOfEntity}</button>
+                        <button type="submit" class="btn btn-info">${edit=="true" ? 'Edit ' : 'Add '}${typeOfEntity}</button>
                         <a class="btn btn-default" href="index.jsp">Cancel</a>
                     </div>
                 </form>

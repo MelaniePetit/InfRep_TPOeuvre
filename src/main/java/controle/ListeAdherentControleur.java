@@ -65,14 +65,14 @@ public class ListeAdherentControleur extends HttpServlet{
             try {
 
                 Service unService = new Service();
-                request.setAttribute("mesAdherents", unService.consulterListeAdherentsCRUD());
+                request.setAttribute("myEntities", unService.consulterListeAdherentsCRUD());
 
             } catch (MonException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
-            destinationPage = "/listerAdherent.jsp";
+            destinationPage = "/list.jsp";
         }
         if (SUPPRIMER.equals(actionName)) {
             String id = request.getParameter(ID);
@@ -83,25 +83,25 @@ public class ListeAdherentControleur extends HttpServlet{
                 request.setAttribute("flashMessage_success", "The Member has been successfully removed");
 
                 unService = new Service();
-                request.setAttribute("mesAdherents", unService.consulterListeAdherentsCRUD());
+                request.setAttribute("myEntities", unService.consulterListeAdherentsCRUD());
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The Member can't be remove");
                 e.printStackTrace();
             }
 
-            destinationPage = "/listerAdherent.jsp";
+            destinationPage = "/list.jsp";
         }
         String id = request.getParameter(ID);
         if (EDIT.equals(actionName)) {
             try {
                 Service unService = new Service();
                 request.setAttribute("monAdherent", unService.consulterAdherent(id));
+                request.setAttribute("edit", true);
             } catch (MonException e) {
                 e.printStackTrace();
             }
-
-            destinationPage = "/modifierAdherent.jsp";
+            destinationPage = "/actionMember.jsp";
         }
 
         else if(MODIFIER.equals(actionName)) {

@@ -65,13 +65,13 @@ public class ListeOeuvreControleur extends HttpServlet {
             try {
 
                 Service unService = new Service();
-                request.setAttribute("mesOeuvres", unService.consulterListeOeuvresCRUD());
+                request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
 
             } catch (MonException e) {
                 e.printStackTrace();
             }
 
-            destinationPage = "/listerOeuvre.jsp";
+            destinationPage = "/list.jsp";
         }
         if (SUPPRIMER.equals(actionName)) {
             int id = Integer.parseInt(request.getParameter(ID));
@@ -82,14 +82,14 @@ public class ListeOeuvreControleur extends HttpServlet {
                 request.setAttribute("flashMessage_success", "The Work of art has been successfully removed");
 
                 unService = new Service();
-                request.setAttribute("mesOeuvres", unService.consulterListeOeuvresCRUD());
+                request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The Work of art can't be remove");
                 e.printStackTrace();
             }
 
-            destinationPage = "/listerOeuvre.jsp";
+            destinationPage = "/list.jsp";
         }
         String id = request.getParameter(ID);
         if (EDIT.equals(actionName)) {
