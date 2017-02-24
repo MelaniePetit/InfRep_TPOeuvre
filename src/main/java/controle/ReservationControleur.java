@@ -83,6 +83,7 @@ public class ReservationControleur extends HttpServlet {
 				DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
 				Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
 				uneResa.setDate(date);
+				uneResa.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
 
 				Service unService = new Service();
 				unService.insertReservation(uneResa);

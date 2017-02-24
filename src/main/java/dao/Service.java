@@ -245,17 +245,18 @@ public class Service {
 
 	public void insertReservation(Reservation uneResa) throws MonException {
 		String mysql;
-		Object rs1;
-		Object rs2;
+		List<Object> rs1;
+		List<Object> rs2;
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
 		try {
 			mysql = "SELECT id_oeuvrevente FROM oeuvrevente WHERE titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
 			rs1 = DialogueBd.lecture(mysql);
+			System.out.print(uneResa.getAdherent().getNomAdherent());
 			mysql = "SELECT id_adherent FROM adherent WHERE nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
 			rs2 = DialogueBd.lecture(mysql);
 			mysql = "INSERT INTO reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
-					+ rs1.toString() + "','"
-					+ rs2.toString() + "','"
+					+ Integer.parseInt(rs1.get(0).toString()) + "','"
+					+ Integer.parseInt(rs2.get(0).toString()) + "','"
 					+ uneResa.getDate() + "','"
 					+ "confirmee" + "')";
 
