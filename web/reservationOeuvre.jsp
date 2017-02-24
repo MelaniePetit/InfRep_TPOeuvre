@@ -10,7 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<t:form title="AddMember" contentTitle="Add Member" action="Reservation?action=insererReservation" typeOfEntity="reservation" method="post">
+<t:form title="AddResevation" contentTitle="Add Resevation" action="Reservation?action=insererReservation" typeOfEntity="reservation" method="post">
     <jsp:attribute name="form_tag">
          <div class="form-group flex-center-center">
              <label class="control-label col-sm-2" >Work of art available</label>
@@ -45,7 +45,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="javascripts_tag">
-        <script type="text/javascript" src="lib/bootstrap-datepicker-1.6.4/js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
         <script>
             $('.input-group.date').datepicker({
                 format: "dd/mm/yyyy",
