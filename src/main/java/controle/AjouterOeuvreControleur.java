@@ -52,6 +52,16 @@ public class AjouterOeuvreControleur extends HttpServlet {
         processusTraiteRequete(request, response);
     }
 
+    protected void proprietairesComboBox(HttpServletRequest request){
+        try {
+            Service unService = new Service();
+            request.setAttribute("mesProprietaires", unService.consulterListeProprietaire());
+        } catch (MonException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     protected void processusTraiteRequete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
@@ -59,13 +69,7 @@ public class AjouterOeuvreControleur extends HttpServlet {
         // execute l'action
         if (AJOUTER_OEUVRE.equals(actionName)) {
 
-            try {
-                Service unService = new Service();
-                request.setAttribute("mesProprietaires", unService.consulterListeProprietaire());
-            } catch (MonException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            proprietairesComboBox(request);
             destinationPage = "/actionWorkOfArt.jsp";
         }
         else if (INSERER_OEUVRE.equals(actionName)) {
@@ -85,6 +89,7 @@ public class AjouterOeuvreControleur extends HttpServlet {
                 request.setAttribute("flashMessage_error", "Error : The Work of art can't be add");
                 e.printStackTrace();
             }
+            proprietairesComboBox(request);
             destinationPage = "/actionWorkOfArt.jsp";
         }
 

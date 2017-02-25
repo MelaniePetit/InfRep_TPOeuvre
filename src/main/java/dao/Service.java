@@ -1,7 +1,13 @@
 package dao;
 
 import erreurs.MonException;
+
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.sql.Date;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import metier.*;
 import metier.CRUD.AdherentCRUDForm;
@@ -251,17 +257,22 @@ public class Service {
 		try {
 			mysql = "SELECT id_oeuvrevente FROM oeuvrevente WHERE titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
 			rs1 = DialogueBd.lecture(mysql);
-			System.out.print(uneResa.getAdherent().getNomAdherent());
+			System.out.println(rs1);
+
 			mysql = "SELECT id_adherent FROM adherent WHERE nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
 			rs2 = DialogueBd.lecture(mysql);
+			System.out.println(rs2);
+
 			mysql = "INSERT INTO reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
 					+ Integer.parseInt(rs1.get(0).toString()) + "','"
 					+ Integer.parseInt(rs2.get(0).toString()) + "','"
 					+ uneResa.getDate() + "','"
 					+ "confirmee" + "')";
-
+			System.out.println(mysql);
 			unDialogueBd.insertionBD(mysql);
-			mysql = "UPDATE oeuvrevente SET etat_oeuvrevente = 'R' WHERE id_oeuvrevente='" + rs1.toString()+"'";
+			mysql = "UPDATE oeuvrevente SET etat_oeuvrevente = 'R' WHERE id_oeuvrevente='" + Integer.parseInt(rs1.get(0).toString()) +"'";
+			System.out.println(mysql);
+
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {
 			throw e;
@@ -289,5 +300,59 @@ public class Service {
 
 	}
 
+	//Reservation
+	public List<Adherent> consulterListeReservation() throws MonException {
+		String mysql = "select * from reservation";
+		return consulterListeAdherents(mysql);
+	}
+
+	private List<Reservation> consulterListeReservation(String mysql) throws MonException {
+		List<Object> rs;
+		List<Reservation> mesResa = new ArrayList<Reservation>();
+		int index = 0;
+		try {
+			DialogueBd unDialogueBd = DialogueBd.getInstance();
+			rs = DialogueBd.lecture(mysql);
+			while (index < rs.size()) {
+				// On cree un stage
+				Reservation unA = new Reservation();
+				// il faut redecouper la liste pour retrouver les lignes
+				unA.getOeuvrevente().setIdOeuvrevente(Integer.parseInt(rs.get(index + 0).toString()));
+				unA.getAdherent().setIdAdherent(Integer.parseInt(rs.get(index + 1).toString()));
+				DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
+				unA.setDate(new Date(df.parse(rs.get(index + 2).toString()).getTime()));
+				// On incremente tous les 3 champs
+				index = index + 4;
+				mesResa.add(unA);
+			}
+
+			return mesResa;
+		} catch (Exception exc) {
+			throw new MonException(exc.getMessage(), "systeme");
+		}
+	}
+
+	public Reservation consulterReservation(String numero) throws MonException {
+		String mysql = "select * from reservation where id_oeuvrevente=" + numero;
+		List<Reservation> mesResa = consulterListeReservation(mysql);
+		if (mesResa.isEmpty())
+			return null;
+		else {
+			return mesResa.get(0);
+		}
+	}
+
+	public void editReservation(Reservation uneResa, String numero) throws MonException {
+		String mysql;
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		try {
+			mysql = "UPDATE reservation set id_oeuvrevente='" + uneResa.getOeuvrevente().getIdOeuvrevente() + "',id_adherent='" + uneResa.getAdherent().getIdAdherent() +
+					"',date_reservation='" + uneResa.getDate() + "' WHERE id_oeuvrevente="+ numero;
+
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+	}
 
 }

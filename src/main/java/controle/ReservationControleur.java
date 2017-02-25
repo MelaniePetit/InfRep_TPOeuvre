@@ -57,22 +57,35 @@ public class ReservationControleur extends HttpServlet {
 		processusTraiteRequete(request, response);
 	}
 
+	protected void adherentsComboBox(HttpServletRequest request){
+		try {
+			Service unService = new Service();
+			request.setAttribute("mesAdherents", unService.consulterListeAdherents());
+		} catch (MonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	protected void oeuvresComboBox(HttpServletRequest request){
+		try {
+			Service unService = new Service();
+			request.setAttribute("mesOeuvres", unService.consulterListeOeuvresDisponibles());
+		} catch (MonException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
 	protected void processusTraiteRequete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String actionName = request.getParameter(ACTION_TYPE);
 		String destinationPage = ERROR_PAGE;
 		// execute l'action
 		if (RESERVER_OEUVRE.equals(actionName)){
-
-			try {
-				Service unService = new Service();
-				request.setAttribute("mesAdherents", unService.consulterListeAdherents());
-                request.setAttribute("mesOeuvres", unService.consulterListeOeuvresDisponibles());
-
-            } catch (MonException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			adherentsComboBox(request);
+			oeuvresComboBox(request);
 			destinationPage = "/reservationOeuvre.jsp";
 		}
 		else if (INSERER_RESERVATION.equals(actionName)) {
@@ -88,13 +101,17 @@ public class ReservationControleur extends HttpServlet {
 				Service unService = new Service();
 				unService.insertReservation(uneResa);
 
+				request.setAttribute("flashMessage_success", "The reservation has been successfully added");
+
 			} catch (MonException e) {
-				// TODO Auto-generated catch block
+				request.setAttribute("flashMessage_error", "Error : The reservation can't be add");
 				e.printStackTrace();
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			destinationPage = "/index.jsp";
+			adherentsComboBox(request);
+			oeuvresComboBox(request);
+			destinationPage = "/reservationOeuvre.jsp";
 		}
 		else {
 			String messageErreur = "[" + actionName + "] n'est pas une action valide.";

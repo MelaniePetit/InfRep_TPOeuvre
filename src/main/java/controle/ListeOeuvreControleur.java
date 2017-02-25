@@ -96,7 +96,10 @@ public class ListeOeuvreControleur extends HttpServlet {
             try {
                 Service unService = new Service();
                 request.setAttribute("monOeuvre", unService.consulterOeuvre(id));
+                request.setAttribute("mesProprietaires", unService.consulterListeProprietaire());
                 request.setAttribute("edit", true);
+
+
             } catch (MonException e) {
                 e.printStackTrace();
             }
@@ -108,17 +111,15 @@ public class ListeOeuvreControleur extends HttpServlet {
             try {
                 Oeuvrevente uneOeuvre = new Oeuvrevente();
                 uneOeuvre.setTitreOeuvrevente(request.getParameter("ttitre"));
-                //uneOeuvre.setPrixOeuvrevente(request.getParameter("tprix"));
-                //uneOeuvre.setProprietaire(request.getParameter("ville"));
+                uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("nomproprio"));
 
                 Service unService = new Service();
-                System.out.println(request.getParameter("id"));
                 unService.editOeuvre(uneOeuvre, request.getParameter("id"));
 
             } catch (MonException e) {
                 e.printStackTrace();
             }
-            destinationPage = "/index.jsp";
+            destinationPage = "/list.jsp";
 
         }
         else {
