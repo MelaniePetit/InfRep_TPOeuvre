@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import metier.*;
 import metier.CRUD.AdherentCRUDForm;
 import metier.CRUD.OeuvreCRUDForm;
+import metier.CRUD.ReservationCRUDForm;
 import persistance.*;
 
 public class Service {
@@ -301,8 +302,17 @@ public class Service {
 	}
 
 	//Reservation
+	public ReservationCRUDForm consulterListeReservationCRUD() throws MonException {
+		String mysql = "SELECT r.id_oeuvrevente, r.id_adherent, r.date_reservation, a.nom_adherent, a.prenom_adherent, o.titre_oeuvrevente " +
+				"FROM reservation as r, adherent as a, oeuvrevente as o " +
+				"WHERE r.id_oeuvrevente = o.id_oeuvrevente AND r.id_adherent = a.id_adherent";
+		return new ReservationCRUDForm(consulterListeReservation(mysql));
+	}
+
 	public List<Adherent> consulterListeReservation() throws MonException {
-		String mysql = "select * from reservation";
+		String mysql = "SELECT r.id_oeuvrevente, r.id_adherent, r.date_reservation, a.nom_adherent, a.prenom_adherent, o.titre_oeuvrevente " +
+				"FROM reservation as r, adherent as a, oeuvrevente as o " +
+				"WHERE r.id_oeuvrevente = o.id_oeuvrevente AND r.id_adherent = a.id_adherent";
 		return consulterListeAdherents(mysql);
 	}
 
@@ -313,17 +323,24 @@ public class Service {
 		try {
 			DialogueBd unDialogueBd = DialogueBd.getInstance();
 			rs = DialogueBd.lecture(mysql);
+
 			while (index < rs.size()) {
 				// On cree un stage
-				Reservation unA = new Reservation();
+
+				Reservation unR = new Reservation();
 				// il faut redecouper la liste pour retrouver les lignes
-				unA.getOeuvrevente().setIdOeuvrevente(Integer.parseInt(rs.get(index + 0).toString()));
-				unA.getAdherent().setIdAdherent(Integer.parseInt(rs.get(index + 1).toString()));
-				DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
-				unA.setDate(new Date(df.parse(rs.get(index + 2).toString()).getTime()));
+				unR.getOeuvrevente().setIdOeuvrevente(Integer.parseInt(rs.get(index).toString()));
+				unR.getAdherent().setIdAdherent(Integer.parseInt(rs.get(index + 1).toString()));
+				java.util.Date date = new SimpleDateFormat("yyyy-dd-mm", Locale.FRENCH).parse(rs.get(index+2).toString());
+				unR.setDate(date);
+				unR.getAdherent().setNomAdherent(rs.get(index+3).toString());
+				unR.getAdherent().setPrenomAdherent(rs.get(index+4).toString());
+				unR.getOeuvrevente().setTitreOeuvrevente(rs.get(index+5).toString());
+
 				// On incremente tous les 3 champs
-				index = index + 4;
-				mesResa.add(unA);
+				index = index + 6;
+
+				mesResa.add(unR);
 			}
 
 			return mesResa;
@@ -333,7 +350,7 @@ public class Service {
 	}
 
 	public Reservation consulterReservation(String numero) throws MonException {
-		String mysql = "select * from reservation where id_oeuvrevente=" + numero;
+		String mysql = "SELECT r.id_oeuvrevente, r.id_adherent, r.date_reservation, a.nom_adherent, a.prenom_adherent, o.titre_oeuvrevente FROM reservation as r, adherent as a, oeuvrevente as o WHERE r.id_oeuvrevente = o.id_oeuvrevente AND r.id_adherent = a.id_adherent AND r.id_oeuvrevente = " + numero;
 		List<Reservation> mesResa = consulterListeReservation(mysql);
 		if (mesResa.isEmpty())
 			return null;

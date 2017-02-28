@@ -90,10 +90,9 @@ public class ListeReservationControleur extends HttpServlet{
             try {
 
                 Service unService = new Service();
-                request.setAttribute("myEntities", unService.consulterListeReservation());
+                request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
 
             } catch (MonException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -122,11 +121,13 @@ public class ListeReservationControleur extends HttpServlet{
             try {
                 Service unService = new Service();
                 request.setAttribute("maReservation", unService.consulterReservation(id));
+                request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
+                request.setAttribute("mesAdherents", unService.consulterListeAdherents());
                 request.setAttribute("edit", true);
             } catch (MonException e) {
                 e.printStackTrace();
             }
-            destinationPage = "/actionMember.jsp";
+            destinationPage = "/actionReservation.jsp";
         }
 
         else if(MODIFIER.equals(actionName)) {

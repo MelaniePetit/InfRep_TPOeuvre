@@ -10,20 +10,36 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<t:form title="${edit ? 'EditWorkOfArt' : 'AddWorkOfArt'}" contentTitle="${edit ? 'Edit Work Of Art' : 'Add Work Of Art'}" action="${edit ? 'ListeOeuvres?action=modifierOeuvre' : 'AjouterOeuvre?action=insererOeuvre'}" typeOfEntity="work of art" method="post" edit="${edit ? 'true' : ''}">
+<t:form title="${edit ? 'EditReservation' : 'AddReservation'}" contentTitle="${edit ? 'Edit Reservation' : 'Add Reservation'}" action="${edit ? 'ListeReservations?action=editReservation&id' : 'ListeReservations?action=editReservation&id'}" typeOfEntity="reservation" method="post" edit="${edit ? 'true' : ''}">
     <jsp:attribute name="form_tag">
-        <c:if test="${edit}">
-            <t:input type="number" name="id" value="${monOeuvre.idOeuvrevente}" id="id" placeholder="Id" onblur="verifId(this)" readonly="readonly" label="Id"/>
-        </c:if>
-        <t:input type="text" name="titre" value="${edit ? monOeuvre.titreOeuvrevente : ''}" id="titre" placeholder="Title" onblur="verifTitre(this)" required="required" label="Title"/>
-        <t:input type="number" name="prix" value="${edit ? monOeuvre.prixOeuvrevente : ''}" id="prix" placeholder="Price" onblur="verifPrix(this)" required="required" label="Price"/>
+       <div class="form-group flex-center-center">
+           <label class="control-label col-sm-2" >Work of art available</label>
+           <div class="col-sm-5">
+               <select class="form-control " name="txttitre" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
+                    <c:forEach items="${mesOeuvres}" var="item">
+                        <option ${edit ? (item.idOeuvrevente == maReservation.oeuvrevente.idOeuvrevente ? 'selected="selected"' : '') : ''}>${item.titreOeuvrevente}</option>
+                    </c:forEach>
+               </select>
+           </div>
+       </div>
 
         <div class="form-group flex-center-center">
-            <label class="control-label col-sm-2" >Owner</label>
+            <label class="control-label col-sm-2" >Date of reservation</label>
             <div class="col-sm-5">
-                <select class="form-control " name="nomproprio" onChange="combo(this, 'theinput')" >
-                    <c:forEach items="${mesProprietaires}" var="item">
-                        <option>${item.nomProprietaire}</option>
+                <div class="input-group date">
+                    <input value="${maReservation.date}" id="date" name="txtdate" type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group flex-center-center">
+            <label class="control-label col-sm-2" >Adhérent</label>
+            <div class="col-sm-5">
+                <select class="form-control " name="txtadherent" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
+                    <c:forEach items="${mesAdherents}" var="item">
+                        <option ${edit ? (item.idAdherent == maReservation.adherent.idAdherent ? 'selected="selected"' : '') : ''}>${item.nomAdherent}</option>
+
+                        <option></option>
                     </c:forEach>
                 </select>
             </div>
