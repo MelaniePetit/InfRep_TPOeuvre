@@ -346,11 +346,11 @@ textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeh
       border: 5px solid #960000;
       font-size: 50px;
       cursor: pointer;
-      -webkit-transition: all 0.5s ease 1.2s;
-      -moz-transition: all 0.5s ease 1.2s;
-      -o-transition: all 0.5s ease 1.2s;
-      -ms-transition: all 0.5s ease 1.2s;
-      transition: all 0.5s ease 1.2s; }
+      -webkit-transition: all 0.5s ease 1.7s;
+      -moz-transition: all 0.5s ease 1.7s;
+      -o-transition: all 0.5s ease 1.7s;
+      -ms-transition: all 0.5s ease 1.7s;
+      transition: all 0.5s ease 1.7s; }
       #fullScreen #logo #circleMenu.active {
         z-index: 9999;
         width: 200px;

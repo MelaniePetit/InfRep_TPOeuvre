@@ -44,7 +44,7 @@ public class ListeOeuvreControleur extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraiteGet(request, response);
+        processusTraite(request, response);
     }
 
     /**
@@ -53,13 +53,15 @@ public class ListeOeuvreControleur extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraitePost(request, response);
+        processusTraite(request, response);
     }
 
-    protected void processusTraiteGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processusTraite(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
+        System.out.println(actionName);
+
         // execute l'action
         if (LISTER.equals(actionName)) {
             try {
@@ -99,27 +101,30 @@ public class ListeOeuvreControleur extends HttpServlet {
                 request.setAttribute("mesProprietaires", unService.consulterListeProprietaire());
                 request.setAttribute("edit", true);
 
-
             } catch (MonException e) {
                 e.printStackTrace();
             }
 
             destinationPage = "/actionWorkOfArt.jsp";
         }
-
         else if(MODIFIER.equals(actionName)) {
             try {
+                System.out.println("edit ok");
+
                 Oeuvrevente uneOeuvre = new Oeuvrevente();
-                uneOeuvre.setTitreOeuvrevente(request.getParameter("ttitre"));
+                uneOeuvre.setTitreOeuvrevente(request.getParameter("titre"));
                 uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("nomproprio"));
+                uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("prix")));
 
                 Service unService = new Service();
+                System.out.println("service");
                 unService.editOeuvre(uneOeuvre, request.getParameter("id"));
+                System.out.println("edit done");
 
             } catch (MonException e) {
                 e.printStackTrace();
             }
-            destinationPage = "/list.jsp";
+            destinationPage = "/index.jsp";
 
         }
         else {
@@ -130,12 +135,5 @@ public class ListeOeuvreControleur extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
         dispatcher.forward(request, response);
 
-    }
-
-    protected void processusTraitePost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String actionName = request.getParameter(ACTION_TYPE);
-        String destinationPage = ERROR_PAGE;
-        // execute l'action
     }
 }

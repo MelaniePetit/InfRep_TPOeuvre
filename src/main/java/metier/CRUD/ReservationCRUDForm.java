@@ -3,14 +3,8 @@ package metier.CRUD;
 import com.mysql.jdbc.Messages;
 import metier.Reservation;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
-/**
- * Created by jeremy on 28/02/2017.
- */
 public class ReservationCRUDForm extends AbstractCRUDForm<Reservation> {
 
     public ReservationCRUDForm(List<Reservation> data) {

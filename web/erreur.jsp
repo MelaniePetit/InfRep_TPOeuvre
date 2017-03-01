@@ -11,4 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <t:layout title="Erreur" contentTitle="Error 404">
+    <jsp:attribute name="content_tag">
+        isrufcnsdtufh
+    </jsp:attribute>
 </t:layout>
