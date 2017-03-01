@@ -82,7 +82,7 @@ public class AjouterOeuvreControleur extends HttpServlet {
                 Service unService = new Service();
                 unService.insertOeuvre(uneOeuvre);
 
-                request.setAttribute("flashMessage_success", "The Work of art '" + uneOeuvre.getTitreOeuvrevente() + "' has been successfully added");
+                request.setAttribute("flashMessage_success", "The Work of art '" + uneOeuvre.getTitreOeuvrevente() + "' has been added successfully");
 
             } catch (MonException e) {
                 // TODO Auto-generated catch block

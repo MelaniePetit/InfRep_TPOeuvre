@@ -12,6 +12,6 @@
 
 <t:layout title="Erreur" contentTitle="Error 404">
     <jsp:attribute name="content_tag">
-        isrufcnsdtufh
+        <img src="404.jpg" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; height: auto;">
     </jsp:attribute>
 </t:layout>

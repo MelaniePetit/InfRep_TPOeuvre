@@ -109,17 +109,13 @@ public class ListeOeuvreControleur extends HttpServlet {
         }
         else if(MODIFIER.equals(actionName)) {
             try {
-                System.out.println("edit ok");
-
                 Oeuvrevente uneOeuvre = new Oeuvrevente();
                 uneOeuvre.setTitreOeuvrevente(request.getParameter("titre"));
                 uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("nomproprio"));
                 uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("prix")));
 
                 Service unService = new Service();
-                System.out.println("service");
                 unService.editOeuvre(uneOeuvre, request.getParameter("id"));
-                System.out.println("edit done");
 
             } catch (MonException e) {
                 e.printStackTrace();

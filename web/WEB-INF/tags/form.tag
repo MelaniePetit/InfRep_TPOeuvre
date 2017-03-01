@@ -8,6 +8,7 @@
 <%@attribute name="edit"%>
 <%@attribute name="method"%>
 <%@attribute name="typeOfEntity"%>
+<%@ attribute name="test" %>
 
 <t:layout title="${title}" contentTitle="${contentTitle}">
 
@@ -18,16 +19,16 @@
     <jsp:attribute name="content_tag">
         <div class="form">
             <div class="alert alert-danger col-lg-4" id="erreur" style="display: none">
-                <button type="button" class="close">×</button>
-                <p>Please, fill in all the fields</p>
+                <button type="button" class="close">x</button>
+                <p>Please, fill in all the fields correctly</p>
             </div>
             <div class="alert alert-success col-lg-4" id="reussite" style="display: none">
-                <button type="button" class="close">×</button>
+                <button type="button" class="close">x</button>
                 <p>The new adherent was successfully add !</p>
             </div>
 
             <div class="well">
-                <form  class="form-horizontal" name='identification' method="${method}" action="${action}" onsubmit="return verifForm(this)">
+                <form  class="form-horizontal" name='identification' method="${method}" action="${action}" onsubmit="return ${test}">
                     <jsp:invoke fragment="form_tag"/>
 
                     <!-- Boutons Ajouter -->

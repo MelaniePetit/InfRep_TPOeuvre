@@ -111,13 +111,12 @@ public class ListeAdherentControleur extends HttpServlet{
                 unAdherent.setVilleAdherent(request.getParameter("ville"));
 
                 Service unService = new Service();
-                System.out.println(request.getParameter("id"));
                 unService.editAdherent(unAdherent, request.getParameter("id"));
 
             } catch (MonException e) {
                 e.printStackTrace();
             }
-            destinationPage = "/index.jsp";
+            destinationPage = "/list.jsp";
 
         }
         else {

@@ -22,6 +22,7 @@
 
     <body>
         <jsp:invoke fragment="body_tag"/>
+        <script type="application/javascript" src="js/formControleur.js"></script>
         <script type="application/javascript" src="lib/jquery/jquery-1.11.2.min.js"></script>
         <script type="application/javascript" src="lib/bootstrap/js/bootstrap.js"></script>
         <script type="application/javascript" src="js/menu.js"></script>

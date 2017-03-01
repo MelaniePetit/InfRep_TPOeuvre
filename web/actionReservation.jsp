@@ -45,8 +45,4 @@
             </div>
         </div>
     </jsp:attribute>
-
-    <jsp:attribute name="javascripts_tag">
-        <script type="text/javascript" src="js/formOeuvre.js"></script>
-    </jsp:attribute>
 </t:form>

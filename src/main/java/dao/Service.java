@@ -12,10 +12,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import metier.*;
 import metier.CRUD.AdherentCRUDForm;
 import metier.CRUD.OeuvreCRUDForm;
+import metier.CRUD.ProprietaireCRUDForm;
 import metier.CRUD.ReservationCRUDForm;
 import persistance.*;
 
 public class Service {
+
+	/****************************************** ADHERENTS **********************************************/
 
 	// Mise a jour des caracteristiques d'un adherent
 	// Le booleen indique s'il s'agit d'un nouvel adherent, auquel cas on fait
@@ -91,7 +94,6 @@ public class Service {
 	}
 
 	//Modification d'un adhérent
-
 	public void editAdherent(Adherent unAdherent, String numero) throws MonException {
 		String mysql;
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
@@ -105,10 +107,17 @@ public class Service {
 			throw e;
 		}
 	}
+
+	public void supprimerAdherent(String id) throws MonException {
+		String mysql = "DELETE from adherent WHERE id_adherent='" + id + "'";
+		supprimer(mysql);
+	}
+
+	/****************************************** OEUVRES **********************************************/
+
 	// Mise a jour des caracteristiques d'une oeuvre
 	// Le booleen indique s'il s'agit d'une nouvelle oeuvre, auquel cas on fait
 	// une creation
-
 	public void insertOeuvre(Oeuvrevente uneOeuvre) throws MonException {
 		String mysql;
 		List<Object> rs;
@@ -140,7 +149,6 @@ public class Service {
 		if (mesO.isEmpty())
 			return null;
 		else {
-			System.out.println(mesO.get(0).getIdOeuvrevente());
 			return mesO.get(0);
 		}
 	}
@@ -170,7 +178,6 @@ public class Service {
 		List<Oeuvrevente> mesOeuvres = new ArrayList<Oeuvrevente>();
 		int index = 0;
 		try {
-			DialogueBd unDialogueBd = DialogueBd.getInstance();
 			rs = DialogueBd.lecture(mysql);
 			while (index < rs.size()) {
 				// On cree un stage
@@ -179,7 +186,7 @@ public class Service {
 				// il faut redecouper la liste pour retrouver les lignes
 				unA.setIdOeuvrevente(Integer.parseInt(rs.get(index + 0).toString()));
 				unA.setTitreOeuvrevente(rs.get(index + 1).toString());
-				unA.setPrixOeuvrevente(Float.parseFloat(rs.get(index + 2).toString()));
+				unA.setPrixOeuvrevente(Integer.parseInt(rs.get(index + 2).toString()));
 				unA.getProprietaire().setNomProprietaire(rs.get(index + 3).toString());
 				unA.getProprietaire().setPrenomProprietaire(rs.get(index + 4).toString());
 
@@ -192,8 +199,8 @@ public class Service {
 			throw new MonException(exc.getMessage(), "systeme");
 		}
 	}
-	//Modification d'une oeuvre
 
+	//Modification d'une oeuvre
 	public void editOeuvre(Oeuvrevente uneOeuvre, String numero) throws MonException {
 		String mysql;
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
@@ -206,45 +213,17 @@ public class Service {
 			throw e;
 		}
 	}
-    // Consultation des proprietaire
-    // Fabrique et renvoie une liste d'objets proprietaire contenant le resultat de
-    // la requete BDD
-    public List<Proprietaire> consulterListeProprietaire() throws MonException {
-        String mysql = "SELECT * FROM proprietaire ";
-        return consulterListeProprietaire(mysql);
-    }
 
-    private List<Proprietaire> consulterListeProprietaire(String mysql) throws MonException {
-        List<Object> rs;
-        List<Proprietaire> mesProprietaires = new ArrayList<Proprietaire>();
-        int index = 0;
-        try {
-            DialogueBd unDialogueBd = DialogueBd.getInstance();
-            rs = DialogueBd.lecture(mysql);
-            while (index < rs.size()) {
-                // On cree un stage
-                Proprietaire unA = new Proprietaire();
+	public void supprimerOeuvre(int id) throws MonException {
+		String mysql = "DELETE from oeuvrevente WHERE id_oeuvrevente=" + id;
+		supprimer(mysql);
+	}
 
-                // il faut redecouper la liste pour retrouver les lignes
-                unA.setIdProprietaire(Integer.parseInt(rs.get(index + 0).toString()));
-                unA.setNomProprietaire(rs.get(index + 1).toString());
-                unA.setPrenomProprietaire(rs.get(index + 2).toString());
-
-                // On incremente tous les 3 champs
-                index = index + 3;
-                mesProprietaires.add(unA);
-
-            }
-            return mesProprietaires;
-        } catch (Exception exc) {
-            throw new MonException(exc.getMessage(), "systeme");
-        }
-    }
+	/****************************************** RESERVATIONS **********************************************/
 
 	// Mise a jour des caracteristiques d'une oeuvre
 	// Le booleen indique s'il s'agit d'une nouvelle oeuvre, auquel cas on fait
 	// une creation
-
 	public void insertReservation(Reservation uneResa) throws MonException {
 		String mysql;
 		List<Object> rs1;
@@ -253,47 +232,20 @@ public class Service {
 		try {
 			mysql = "SELECT id_oeuvrevente FROM oeuvrevente WHERE titre_oeuvrevente = '" + uneResa.getOeuvrevente().getTitreOeuvrevente() + "'";
 			rs1 = DialogueBd.lecture(mysql);
-			System.out.println(rs1);
-
 			mysql = "SELECT id_adherent FROM adherent WHERE nom_adherent = '" + uneResa.getAdherent().getNomAdherent() + "'";
 			rs2 = DialogueBd.lecture(mysql);
-			System.out.println(rs2);
-
 			mysql = "INSERT INTO reservation (id_oeuvrevente, id_adherent, date_reservation, statut)  " + "values ('"
 					+ Integer.parseInt(rs1.get(0).toString()) + "','"
 					+ Integer.parseInt(rs2.get(0).toString()) + "','"
 					+ uneResa.getDate() + "','"
 					+ "confirmee" + "')";
-			System.out.println(mysql);
 			unDialogueBd.insertionBD(mysql);
 			mysql = "UPDATE oeuvrevente SET etat_oeuvrevente = 'R' WHERE id_oeuvrevente='" + Integer.parseInt(rs1.get(0).toString()) +"'";
-			System.out.println(mysql);
 
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {
 			throw e;
 		}
-	}
-
-	public void supprimerOeuvre(int id) throws MonException {
-		String mysql = "DELETE from oeuvrevente WHERE id_oeuvrevente=" + id;
-		supprimer(mysql);
-	}
-
-	public void supprimerAdherent(String id) throws MonException {
-		String mysql = "DELETE from adherent WHERE id_adherent='" + id + "'";
-		supprimer(mysql);
-	}
-
-	public void supprimer(String mysql) throws MonException {
-
-		DialogueBd unDialogueBd = DialogueBd.getInstance();
-		try {
-			unDialogueBd.insertionBD(mysql);
-		} catch (MonException e) {
-			throw e;
-		}
-
 	}
 
 	//Reservation
@@ -366,5 +318,110 @@ public class Service {
 			throw e;
 		}
 	}
+
+	public void supprimerReservation(String id) throws MonException {
+		String mysql = "DELETE from reservation WHERE id_adherent='" + id + "'";
+		supprimer(mysql);
+	}
+
+
+	/****************************************** PROPRIETAIRES **********************************************/
+
+	// Consultation des proprietaire
+	// Fabrique et renvoie une liste d'objets proprietaire contenant le resultat de
+	// la requete BDD
+	public ProprietaireCRUDForm consulterListeProprietairesCRUD() throws MonException {
+		String mysql = "select * from proprietaire";
+		return new ProprietaireCRUDForm(consulterListeProprietaire(mysql));
+	}
+
+	public List<Proprietaire> consulterListeProprietaire() throws MonException {
+		String mysql = "SELECT * FROM proprietaire ";
+		return consulterListeProprietaire(mysql);
+	}
+
+	private List<Proprietaire> consulterListeProprietaire(String mysql) throws MonException {
+		List<Object> rs;
+		List<Proprietaire> mesProprietaires = new ArrayList<Proprietaire>();
+		int index = 0;
+		try {
+			DialogueBd unDialogueBd = DialogueBd.getInstance();
+			rs = DialogueBd.lecture(mysql);
+			while (index < rs.size()) {
+				// On cree un stage
+				Proprietaire unA = new Proprietaire();
+
+				// il faut redecouper la liste pour retrouver les lignes
+				unA.setIdProprietaire(Integer.parseInt(rs.get(index + 0).toString()));
+				unA.setNomProprietaire(rs.get(index + 1).toString());
+				unA.setPrenomProprietaire(rs.get(index + 2).toString());
+
+				// On incremente tous les 3 champs
+				index = index + 3;
+				mesProprietaires.add(unA);
+
+			}
+			return mesProprietaires;
+		} catch (Exception exc) {
+			throw new MonException(exc.getMessage(), "systeme");
+		}
+	}
+
+	public void insertProprietaire(Proprietaire proprio) throws MonException{
+		String mysql;
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		try {
+			mysql = "insert into proprietaire (nom_proprietaire, prenom_proprietaire)  " + "values ('"
+					+ proprio.getNomProprietaire().toUpperCase()+"'"
+					+ ",'" + proprio.getPrenomProprietaire() +"')";
+
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+	}
+
+	public void supprimerProprietaire(String id) throws MonException {
+		String mysql = "DELETE from proprietaire WHERE id_proprietaire='" + id + "'";
+		supprimer(mysql);
+	}
+
+	public Proprietaire consulterProprietaire(String numero) throws MonException {
+		String mysql = "select * from proprietaire where id_proprietaire=" + numero;
+		List<Proprietaire> mesProprio = consulterListeProprietaire(mysql);
+		if (mesProprio.isEmpty()) {
+			return null;
+		}
+		else {
+			return mesProprio.get(0);
+		}
+	}
+
+	public void editProprietaire(Proprietaire unProprio, String numero) throws MonException {
+		String mysql;
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+
+		try {
+			mysql = "UPDATE proprietaire set nom_proprietaire='" + unProprio.getNomProprietaire().toUpperCase() + "',prenom_proprietaire='"
+					+ unProprio.getPrenomProprietaire() + "' WHERE id_proprietaire="+ numero;
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+	}
+
+	/****************************************** AUTRES **********************************************/
+
+	public void supprimer(String mysql) throws MonException {
+
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		try {
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
+
+	}
+
 
 }

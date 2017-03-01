@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<t:form title="${edit ? 'EditWorkOfArt' : 'AddWorkOfArt'}" contentTitle="${edit ? 'Edit Work Of Art' : 'Add Work Of Art'}" action="${edit ? 'ListeOeuvres?action=modifierOeuvre' : 'AjouterOeuvre?action=insererOeuvre'}" typeOfEntity="work of art" method="post" edit="${edit ? 'true' : 'false'}">
+<t:form title="${edit ? 'EditWorkOfArt' : 'AddWorkOfArt'}" contentTitle="${edit ? 'Edit Work Of Art' : 'Add Work Of Art'}" action="${edit ? 'ListeOeuvres?action=modifierOeuvre' : 'AjouterOeuvre?action=insererOeuvre'}" typeOfEntity="work of art" method="post" edit="${edit ? 'true' : 'false'}" test="verifFormOeuvre(this)">
     <jsp:attribute name="form_tag">
         <c:if test="${edit}">
             <t:input type="number" name="id" value="${monOeuvre.idOeuvrevente}" id="id" placeholder="Id" onblur="verifId(this)" readonly="readonly" label="Id"/>
@@ -22,9 +22,5 @@
                 </select>
             </div>
         </div>
-    </jsp:attribute>
-
-    <jsp:attribute name="javascripts_tag">
-        <%--<script type="text/javascript" src="js/formOeuvre.js"></script>--%>
     </jsp:attribute>
 </t:form>

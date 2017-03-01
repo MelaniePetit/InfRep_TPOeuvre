@@ -5,7 +5,6 @@
 
 <t:layout title="${title}" contentTitle="${contentTitle}">
     <jsp:attribute name="stylesheet_tag">
-        <%--<link rel="stylesheet"  href="lib/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css"/>--%>
         <link rel="stylesheet"  href="webjars/datatables/1.10.13/css/dataTables.bootstrap.min.css"/>
     </jsp:attribute>
 

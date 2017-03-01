@@ -2,7 +2,8 @@ package controle;
 
 import dao.Service;
 import erreurs.MonException;
-import metier.Reservation;
+import metier.Adherent;
+import metier.Proprietaire;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,26 +12,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 /**
- * Created by Mel on 25/02/2017.
+ * Created by Mel on 01/03/2017.
  */
-@WebServlet("/ListeReservations")
-public class ListeReservationControleur extends HttpServlet{
-
-    private static final String LISTER_RESERVATION = "listerReservation";
+@WebServlet("/ListeProprietaires")
+public class ListerProprietaireControleur extends HttpServlet {
     private static final String ACTION_TYPE = "action";
 
-    private static final String SUPPRIMER = "suppReservation";
-    private static final String EDIT = "editReservation"; // ouvre la page d'édition
-    private static final String MODIFIER = "modifierReservation"; //gère l'envoi des données
+    private static final String LISTER_PROPRIETAIRE= "listerProprio";
+    private static final String SUPPRIMER = "suppProprio";
+    private static final String EDIT = "editProprio"; // ouvre la page d'édition
+    private static final String MODIFIER = "modifierProprio"; //gère l'envoi des données
     private static final String ID = "id";
-    private String id ;
 
     private static final String ERROR_KEY = "messageErreur";
     private static final String ERROR_PAGE = "/erreur.jsp";
@@ -38,9 +32,8 @@ public class ListeReservationControleur extends HttpServlet{
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListeReservationControleur() {
+    public ListerProprietaireControleur() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -61,91 +54,66 @@ public class ListeReservationControleur extends HttpServlet{
         processusTraiteRequete(request, response);
     }
 
-    protected void adherentsComboBox(HttpServletRequest request){
-        try {
-            Service unService = new Service();
-            request.setAttribute("mesAdherents", unService.consulterListeAdherents());
-        } catch (MonException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    protected void oeuvresComboBox(HttpServletRequest request){
-        try {
-            Service unService = new Service();
-            request.setAttribute("mesOeuvres", unService.consulterListeOeuvresDisponibles());
-        } catch (MonException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     protected void processusTraiteRequete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
         // execute l'action
-        if (LISTER_RESERVATION.equals(actionName)) {
+        if (LISTER_PROPRIETAIRE.equals(actionName)) {
             try {
 
                 Service unService = new Service();
-                request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
+                request.setAttribute("myEntities", unService.consulterListeProprietairesCRUD());
 
             } catch (MonException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            destinationPage = "/list.jsp";
+        }
+        if (SUPPRIMER.equals(actionName)) {
+            String id = request.getParameter(ID);
+            try {
+
+                Service unService = new Service();
+                unService.supprimerProprietaire(id);
+                request.setAttribute("flashMessage_success", "The owner has been removed successfully");
+
+                unService = new Service();
+                request.setAttribute("myEntities", unService.consulterListeProprietairesCRUD());
+
+            } catch (MonException e) {
+                request.setAttribute("flashMessage_error", "Error : The owner can't be remove");
                 e.printStackTrace();
             }
 
             destinationPage = "/list.jsp";
         }
         String id = request.getParameter(ID);
-        if (SUPPRIMER.equals(actionName)) {
-            try {
-
-                Service unService = new Service();
-                unService.supprimerReservation(id);
-                request.setAttribute("flashMessage_success", "The reservation has been successfully removed");
-
-                unService = new Service();
-                request.setAttribute("myReservation", unService.consulterListeReservation());
-
-            } catch (MonException e) {
-                request.setAttribute("flashMessage_error", "Error : The reservation can't be remove");
-                e.printStackTrace();
-            }
-
-            destinationPage = "/list.jsp";
-        }
-
+    System.out.println(actionName);
         if (EDIT.equals(actionName)) {
             try {
+                System.out.println(id);
                 Service unService = new Service();
-                request.setAttribute("maReservation", unService.consulterReservation(id));
-                request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
-                request.setAttribute("mesAdherents", unService.consulterListeAdherents());
+                request.setAttribute("monProprio", unService.consulterProprietaire(id));
                 request.setAttribute("edit", true);
             } catch (MonException e) {
                 e.printStackTrace();
             }
-            destinationPage = "/actionReservation.jsp";
+            destinationPage = "/actionOwner.jsp";
         }
 
         else if(MODIFIER.equals(actionName)) {
             try {
-                Reservation uneReservation = new Reservation();
-                uneReservation.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
-                DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
-                Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
-                uneReservation.setDate(date);
-                uneReservation.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
-
+                Proprietaire unProprio = new Proprietaire();
+                unProprio.setNomProprietaire(request.getParameter("nom"));
+                unProprio.setPrenomProprietaire(request.getParameter("prenom"));
 
                 Service unService = new Service();
-                unService.editReservation(uneReservation, request.getParameter("id"));
+                unService.editProprietaire(unProprio, request.getParameter("id"));
 
             } catch (MonException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
                 e.printStackTrace();
             }
             destinationPage = "/list.jsp";
@@ -158,7 +126,6 @@ public class ListeReservationControleur extends HttpServlet{
         // Redirection vers la page jsp appropriee
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
         dispatcher.forward(request, response);
-
     }
 
 }

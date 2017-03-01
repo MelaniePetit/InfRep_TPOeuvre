@@ -1,8 +1,12 @@
 package controle;
 
+/**
+ * Created by Mel on 01/03/2017.
+ */
+
 import dao.Service;
 import erreurs.MonException;
-import metier.Adherent;
+import metier.Proprietaire;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,15 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Mel on 18/02/2017.
- */
-@WebServlet("/AjouterAdherent")
-public class AjouterAdherentControleur extends HttpServlet {
+@WebServlet("/AjouterProprietaire")
+public class AjouterProprietaireControleur extends HttpServlet{
     private static final String ACTION_TYPE = "action";
 
-    private static final String AJOUTER_ADHERENT = "ajouterAdherent";
-    private static final String INSERER_ADHERENT = "insererAdherent";
+    private static final String AJOUTER_PROPRIETAIRE = "ajouterProprio";
+    private static final String INSERER_PROPRIETAIRE = "insererProprio";
 
     private static final String ERROR_KEY = "messageErreur";
     private static final String ERROR_PAGE = "/erreur.jsp";
@@ -28,7 +29,7 @@ public class AjouterAdherentControleur extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjouterAdherentControleur() {
+    public AjouterProprietaireControleur() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,26 +58,25 @@ public class AjouterAdherentControleur extends HttpServlet {
         String destinationPage = ERROR_PAGE;
         // execute l'action
 
-        if (AJOUTER_ADHERENT.equals(actionName)) {
+        if (AJOUTER_PROPRIETAIRE.equals(actionName)) {
 
-            destinationPage = "/actionMember.jsp";
+            destinationPage = "/actionOwner.jsp";
         }
-        else if (INSERER_ADHERENT.equals(actionName)) {
+        else if (INSERER_PROPRIETAIRE.equals(actionName)) {
             try {
-                Adherent unAdherent = new Adherent();
-                unAdherent.setNomAdherent(request.getParameter("nom"));
-                unAdherent.setPrenomAdherent(request.getParameter("prenom"));
-                unAdherent.setVilleAdherent(request.getParameter("ville"));
+                Proprietaire unProprio = new Proprietaire();
+                unProprio.setNomProprietaire(request.getParameter("nom"));
+                unProprio.setPrenomProprietaire(request.getParameter("prenom"));
                 Service unService = new Service();
-                unService.insertAdherent(unAdherent);
+                unService.insertProprietaire(unProprio);
 
-                request.setAttribute("flashMessage_success", "The Member " + unAdherent.getPrenomAdherent() + " " + unAdherent.getNomAdherent().toUpperCase() + " has been added successfully");
+                request.setAttribute("flashMessage_success", "The Owner called " + unProprio.getPrenomProprietaire() + " " + unProprio.getNomProprietaire().toUpperCase() + " has been added successfully");
 
             } catch (MonException e) {
-                request.setAttribute("flashMessage_error", "Error : The Member can't be add");
+                request.setAttribute("flashMessage_error", "Error : The owner can't be add");
                 e.printStackTrace();
             }
-            destinationPage = "/actionMember.jsp";
+            destinationPage = "/actionOwner.jsp";
         }
         else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";
@@ -87,5 +87,4 @@ public class AjouterAdherentControleur extends HttpServlet {
         dispatcher.forward(request, response);
 
     }
-
 }

@@ -9,7 +9,8 @@
         'Add Work Of Art',
         'Make a Reservation',
         'Reservations List',
-        'About Us'
+        'Add Owner',
+        'Owners List'
     ]
 }"/>
 
@@ -19,9 +20,10 @@
         'fa-user-plus',
         'fa-paint-brush',
         'fa-list',
-        'fa-bookmark',
-        'fa-list-alt',
-        'fa-info-circle'
+        'fa-calendar-plus-o ',
+        'fa-calendar ',
+        'fa-id-card-o',
+        'fa-address-book-o'
     ]
 }"/>
 
@@ -33,7 +35,8 @@
         'AjouterOeuvre?action=ajouterOeuvre',
         'Reservation?action=reserverOeuvre',
         'ListeReservations?action=listerReservation',
-        'Informations'
+        'AjouterProprietaire?action=ajouterProprio',
+        'ListeProprietaires?action=listerProprio'
     ]
 }"/>
 
