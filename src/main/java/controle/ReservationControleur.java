@@ -82,14 +82,15 @@ public class ReservationControleur extends HttpServlet {
 			throws ServletException, IOException {
 		String actionName = request.getParameter(ACTION_TYPE);
 		String destinationPage = ERROR_PAGE;
+		boolean redirect = false;
+
 		// execute l'action
 		if (RESERVER_OEUVRE.equals(actionName)){
 			adherentsComboBox(request);
 			oeuvresComboBox(request);
-			destinationPage = "/reservationOeuvre.jsp";
+			destinationPage = "/actionReservation.jsp";
 		}
 		else if (INSERER_RESERVATION.equals(actionName)) {
-
 			try {
 				Reservation uneResa = new Reservation();
 				uneResa.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
@@ -102,6 +103,7 @@ public class ReservationControleur extends HttpServlet {
 				unService.insertReservation(uneResa);
 
 				request.setAttribute("flashMessage_success", "The reservation has been successfully added");
+				redirect = true;
 
 			} catch (MonException e) {
 				request.setAttribute("flashMessage_error", "Error : The reservation can't be add");
@@ -111,15 +113,21 @@ public class ReservationControleur extends HttpServlet {
 			}
 			adherentsComboBox(request);
 			oeuvresComboBox(request);
-			destinationPage = "/reservationOeuvre.jsp";
+			destinationPage = "/actionReservation.jsp";
 		}
 		else {
 			String messageErreur = "[" + actionName + "] n'est pas une action valide.";
 			request.setAttribute(ERROR_KEY, messageErreur);
 		}
 		// Redirection vers la page jsp appropriee
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-		dispatcher.forward(request, response);
+		if(redirect)
+		{
+			request.getRequestDispatcher("/ListeReservations?action=listerReservation").forward(request, response);
+		}
+		else {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+			dispatcher.forward(request, response);
+		}
 
 	}
 

@@ -58,12 +58,15 @@ public class ListerProprietaireControleur extends HttpServlet {
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
+        boolean redirect = false;
         // execute l'action
         if (LISTER_PROPRIETAIRE.equals(actionName)) {
             try {
 
                 Service unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeProprietairesCRUD());
+                request.setAttribute("title", "OwnersList");
+                request.setAttribute("contentTitle", "Owners List");
 
             } catch (MonException e) {
                 // TODO Auto-generated catch block
@@ -82,6 +85,8 @@ public class ListerProprietaireControleur extends HttpServlet {
 
                 unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeProprietairesCRUD());
+                request.setAttribute("title", "OwnersList");
+                request.setAttribute("contentTitle", "Owners List");
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The owner can't be remove");
@@ -91,7 +96,6 @@ public class ListerProprietaireControleur extends HttpServlet {
             destinationPage = "/list.jsp";
         }
         String id = request.getParameter(ID);
-    System.out.println(actionName);
         if (EDIT.equals(actionName)) {
             try {
                 System.out.println(id);
@@ -112,7 +116,7 @@ public class ListerProprietaireControleur extends HttpServlet {
 
                 Service unService = new Service();
                 unService.editProprietaire(unProprio, request.getParameter("id"));
-
+                redirect = true;
             } catch (MonException e) {
                 e.printStackTrace();
             }
@@ -124,8 +128,14 @@ public class ListerProprietaireControleur extends HttpServlet {
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        if(redirect)
+        {
+            request.getRequestDispatcher("/ListeProprietaires?action=listerProprio").forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+            dispatcher.forward(request, response);
+        }
     }
 
 }

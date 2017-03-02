@@ -55,6 +55,7 @@ public class AjouterAdherentControleur extends HttpServlet {
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
+        boolean redirect = false;
         // execute l'action
 
         if (AJOUTER_ADHERENT.equals(actionName)) {
@@ -71,7 +72,7 @@ public class AjouterAdherentControleur extends HttpServlet {
                 unService.insertAdherent(unAdherent);
 
                 request.setAttribute("flashMessage_success", "The Member " + unAdherent.getPrenomAdherent() + " " + unAdherent.getNomAdherent().toUpperCase() + " has been added successfully");
-
+                redirect = true;
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The Member can't be add");
                 e.printStackTrace();
@@ -83,8 +84,14 @@ public class AjouterAdherentControleur extends HttpServlet {
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        if(redirect)
+        {
+            request.getRequestDispatcher("/ListeAdherents?action=listerAdherent").forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+            dispatcher.forward(request, response);
+        }
 
     }
 

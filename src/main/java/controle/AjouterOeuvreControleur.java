@@ -66,6 +66,7 @@ public class AjouterOeuvreControleur extends HttpServlet {
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
+        boolean redirect = false;
         // execute l'action
         if (AJOUTER_OEUVRE.equals(actionName)) {
 
@@ -83,6 +84,7 @@ public class AjouterOeuvreControleur extends HttpServlet {
                 unService.insertOeuvre(uneOeuvre);
 
                 request.setAttribute("flashMessage_success", "The Work of art '" + uneOeuvre.getTitreOeuvrevente() + "' has been added successfully");
+                redirect = true;
 
             } catch (MonException e) {
                 // TODO Auto-generated catch block
@@ -98,8 +100,14 @@ public class AjouterOeuvreControleur extends HttpServlet {
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        if(redirect)
+        {
+            request.getRequestDispatcher("//ListeOeuvres?action=listerOeuvre").forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+            dispatcher.forward(request, response);
+        }
     }
 
 }

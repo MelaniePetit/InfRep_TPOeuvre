@@ -60,7 +60,7 @@ public class ListeOeuvreControleur extends HttpServlet {
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
-        System.out.println(actionName);
+        boolean redirect = false;
 
         // execute l'action
         if (LISTER.equals(actionName)) {
@@ -68,6 +68,8 @@ public class ListeOeuvreControleur extends HttpServlet {
 
                 Service unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
+                request.setAttribute("title", "WorksOfArtList");
+                request.setAttribute("contentTitle", "Works Of Art List");
 
             } catch (MonException e) {
                 e.printStackTrace();
@@ -85,6 +87,8 @@ public class ListeOeuvreControleur extends HttpServlet {
 
                 unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());
+                request.setAttribute("title", "WorksOfArtList");
+                request.setAttribute("contentTitle", "Works Of Art List");
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The Work of art can't be remove");
@@ -116,20 +120,27 @@ public class ListeOeuvreControleur extends HttpServlet {
 
                 Service unService = new Service();
                 unService.editOeuvre(uneOeuvre, request.getParameter("id"));
+                redirect = true;
 
             } catch (MonException e) {
                 e.printStackTrace();
             }
-            destinationPage = "/index.jsp";
-
+            destinationPage = "/list.jsp";
         }
         else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        if(redirect)
+        {
+            request.getRequestDispatcher("/ListeOeuvres?action=listerOeuvre").forward(request, response);
+        }
+        else
+        {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+            dispatcher.forward(request, response);
+        }
 
     }
 }

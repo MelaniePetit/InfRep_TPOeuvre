@@ -18,13 +18,9 @@
 
     <jsp:attribute name="content_tag">
         <div class="form">
-            <div class="alert alert-danger col-lg-4" id="erreur" style="display: none">
+            <div class="alert alert-danger" id="erreur" style="display: none">
                 <button type="button" class="close">x</button>
                 <p>Please, fill in all the fields correctly</p>
-            </div>
-            <div class="alert alert-success col-lg-4" id="reussite" style="display: none">
-                <button type="button" class="close">x</button>
-                <p>The new adherent was successfully add !</p>
             </div>
 
             <div class="well">

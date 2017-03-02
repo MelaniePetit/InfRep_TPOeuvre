@@ -182,7 +182,6 @@ public class Service {
 			while (index < rs.size()) {
 				// On cree un stage
 				Oeuvrevente unA = new Oeuvrevente();
-
 				// il faut redecouper la liste pour retrouver les lignes
 				unA.setIdOeuvrevente(Integer.parseInt(rs.get(index + 0).toString()));
 				unA.setTitreOeuvrevente(rs.get(index + 1).toString());

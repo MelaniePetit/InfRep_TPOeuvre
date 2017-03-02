@@ -85,12 +85,15 @@ public class ListeReservationControleur extends HttpServlet{
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
+        boolean redirect = false;
         // execute l'action
         if (LISTER_RESERVATION.equals(actionName)) {
             try {
 
                 Service unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
+                request.setAttribute("title", "ReservationsList");
+                request.setAttribute("contentTitle", "Reservations List");
 
             } catch (MonException e) {
                 e.printStackTrace();
@@ -108,6 +111,8 @@ public class ListeReservationControleur extends HttpServlet{
 
                 unService = new Service();
                 request.setAttribute("myReservation", unService.consulterListeReservation());
+                request.setAttribute("title", "ReservationsList");
+                request.setAttribute("contentTitle", "Reservations List");
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The reservation can't be remove");
@@ -139,16 +144,15 @@ public class ListeReservationControleur extends HttpServlet{
                 uneReservation.setDate(date);
                 uneReservation.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
 
-
                 Service unService = new Service();
                 unService.editReservation(uneReservation, request.getParameter("id"));
-
+                redirect = true;
             } catch (MonException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            destinationPage = "/list.jsp";
+            destinationPage = "/actionReservation.jsp";
 
         }
         else {
@@ -156,8 +160,14 @@ public class ListeReservationControleur extends HttpServlet{
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        if(redirect)
+        {
+            request.getRequestDispatcher("/ListeReservations?action=listerReservation").forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+            dispatcher.forward(request, response);
+        }
 
     }
 

@@ -10,9 +10,14 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<t:form title="${edit ? 'EditReservation' : 'AddReservation'}" contentTitle="${edit ? 'Edit Reservation' : 'Add Reservation'}" action="${edit ? 'ListeReservations?action=editReservation&id' : 'ListeReservations?action=editReservation&id'}" typeOfEntity="reservation" method="post" edit="${edit ? 'true' : ''}">
+<t:form title="${edit ? 'EditReservation' : 'AddReservation'}" contentTitle="${edit ? 'Edit Reservation' : 'Add Reservation'}" action="${edit ? 'ListeReservations?action=modifierReservation&id' : 'Reservation?action=insererReservation'}" typeOfEntity="reservation" method="post" edit="${edit ? 'true' : ''}">
     <jsp:attribute name="form_tag">
-       <div class="form-group flex-center-center">
+
+        <c:if test="${edit}">
+            <t:input type="number" name="id" value="${maReservation.id}" id="id" placeholder="Id" onblur="verifId(this)" readonly="readonly" label="Id"/>
+        </c:if>
+
+        <div class="form-group flex-center-center">
            <label class="control-label col-sm-2" >Work of art available</label>
            <div class="col-sm-5">
                <select class="form-control " name="txttitre" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
@@ -21,7 +26,7 @@
                     </c:forEach>
                </select>
            </div>
-       </div>
+        </div>
 
         <div class="form-group flex-center-center">
             <label class="control-label col-sm-2" >Date of reservation</label>
@@ -38,11 +43,20 @@
                 <select class="form-control " name="txtadherent" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
                     <c:forEach items="${mesAdherents}" var="item">
                         <option ${edit ? (item.idAdherent == maReservation.adherent.idAdherent ? 'selected="selected"' : '') : ''}>${item.nomAdherent}</option>
-
-                        <option></option>
                     </c:forEach>
                 </select>
             </div>
         </div>
     </jsp:attribute>
+
+    <jsp:attribute name="javascripts_tag">
+        <script type="text/javascript" src="webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+        <script>
+            $('.input-group.date').datepicker({
+                format: "dd/mm/yyyy",
+                todayHighlight: true
+            });
+        </script>
+    </jsp:attribute>
+
 </t:form>

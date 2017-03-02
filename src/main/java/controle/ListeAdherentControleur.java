@@ -59,12 +59,16 @@ public class ListeAdherentControleur extends HttpServlet{
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
+        boolean redirect = false;
         // execute l'action
         if (LISTER_ADHERENT.equals(actionName)) {
             try {
 
                 Service unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeAdherentsCRUD());
+                request.setAttribute("title", "MembersList");
+                request.setAttribute("contentTitle", "Members List");
+
 
             } catch (MonException e) {
                 // TODO Auto-generated catch block
@@ -83,6 +87,8 @@ public class ListeAdherentControleur extends HttpServlet{
 
                 unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeAdherentsCRUD());
+                request.setAttribute("title", "MembersList");
+                request.setAttribute("contentTitle", "Members List");
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The Member can't be remove");
@@ -112,7 +118,7 @@ public class ListeAdherentControleur extends HttpServlet{
 
                 Service unService = new Service();
                 unService.editAdherent(unAdherent, request.getParameter("id"));
-
+                redirect = true;
             } catch (MonException e) {
                 e.printStackTrace();
             }
@@ -124,8 +130,14 @@ public class ListeAdherentControleur extends HttpServlet{
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        if(redirect)
+        {
+            request.getRequestDispatcher("/ListeAdherents?action=listerAdherent").forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+            dispatcher.forward(request, response);
+        }
 
     }
 

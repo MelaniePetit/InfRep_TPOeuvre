@@ -13,8 +13,8 @@
     </jsp:attribute>
 
     <jsp:attribute name="javascripts_tag">
-		<script type="application/javascript" src="webjars/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
-		<script type="application/javascript" src="webjars/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
+        <script type="application/javascript" src="webjars/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script type="application/javascript" src="webjars/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
         <script>
             $(document).ready(function() {
                 $('#DataTable').DataTable(
@@ -28,4 +28,3 @@
         </script>
     </jsp:attribute>
 </t:layout>
-

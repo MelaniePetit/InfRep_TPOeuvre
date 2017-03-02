@@ -56,6 +56,7 @@ public class AjouterProprietaireControleur extends HttpServlet{
             throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
+        boolean redirect = false;
         // execute l'action
 
         if (AJOUTER_PROPRIETAIRE.equals(actionName)) {
@@ -71,6 +72,7 @@ public class AjouterProprietaireControleur extends HttpServlet{
                 unService.insertProprietaire(unProprio);
 
                 request.setAttribute("flashMessage_success", "The Owner called " + unProprio.getPrenomProprietaire() + " " + unProprio.getNomProprietaire().toUpperCase() + " has been added successfully");
+                redirect = true;
 
             } catch (MonException e) {
                 request.setAttribute("flashMessage_error", "Error : The owner can't be add");
@@ -83,8 +85,14 @@ public class AjouterProprietaireControleur extends HttpServlet{
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        if(redirect)
+        {
+            request.getRequestDispatcher("/ListeProprietaires?action=listerProprio").forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
+            dispatcher.forward(request, response);
+        }
 
     }
 }
