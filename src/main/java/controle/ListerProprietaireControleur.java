@@ -116,6 +116,9 @@ public class ListerProprietaireControleur extends HttpServlet {
 
                 Service unService = new Service();
                 unService.editProprietaire(unProprio, request.getParameter("id"));
+
+                request.setAttribute("flashMessage_success", "The Owner called " + unProprio.getPrenomProprietaire() + " " + unProprio.getNomProprietaire().toUpperCase() + " has been modified successfully");
+
                 redirect = true;
             } catch (MonException e) {
                 e.printStackTrace();

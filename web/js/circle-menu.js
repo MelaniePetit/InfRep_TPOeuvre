@@ -30,9 +30,11 @@ $(document).ready(function(){
 
     $('.menu').each(function () {
         $(this).mouseenter(function () {
-            var value = $(this).attr("menu-label");
-            $('.menu-label').text(value);
-            $('.menu-label').addClass("appear");
+            if ($(this).hasClass("active")) {
+                var value = $(this).attr("menu-label");
+                $('.menu-label').text(value);
+                $('.menu-label').addClass("appear");
+            }
         });
         $(this).mouseleave(function () {
             $('.menu-label').removeClass("appear");

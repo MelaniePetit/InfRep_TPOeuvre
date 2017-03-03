@@ -118,6 +118,9 @@ public class ListeAdherentControleur extends HttpServlet{
 
                 Service unService = new Service();
                 unService.editAdherent(unAdherent, request.getParameter("id"));
+
+                request.setAttribute("flashMessage_success", "The Member " + unAdherent.getPrenomAdherent() + " " + unAdherent.getNomAdherent().toUpperCase() + " has been modified successfully");
+
                 redirect = true;
             } catch (MonException e) {
                 e.printStackTrace();

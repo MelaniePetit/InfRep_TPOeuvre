@@ -277,13 +277,16 @@ public class Service {
 				// il faut redecouper la liste pour retrouver les lignes
 				unR.getOeuvrevente().setIdOeuvrevente(Integer.parseInt(rs.get(index).toString()));
 				unR.getAdherent().setIdAdherent(Integer.parseInt(rs.get(index + 1).toString()));
-				java.util.Date date = new SimpleDateFormat("yyyy-dd-mm", Locale.FRENCH).parse(rs.get(index+2).toString());
+
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = new Date(df.parse(rs.get(index+2).toString()).getTime());
 				unR.setDate(date);
+
 				unR.getAdherent().setNomAdherent(rs.get(index+3).toString());
 				unR.getAdherent().setPrenomAdherent(rs.get(index+4).toString());
 				unR.getOeuvrevente().setTitreOeuvrevente(rs.get(index+5).toString());
 
-				// On incremente tous les 3 champs
+				// On incremente tous les 6 champs
 				index = index + 6;
 
 				mesResa.add(unR);
@@ -309,8 +312,7 @@ public class Service {
 		String mysql;
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
 		try {
-			mysql = "UPDATE reservation set id_oeuvrevente='" + uneResa.getOeuvrevente().getIdOeuvrevente() + "',id_adherent='" + uneResa.getAdherent().getIdAdherent() +
-					"',date_reservation='" + uneResa.getDate() + "' WHERE id_oeuvrevente="+ numero;
+			mysql = "UPDATE `reservation` SET `date_reservation`='" + uneResa.getDate() + "' WHERE `id_oeuvrevente` = " + numero;
 
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {

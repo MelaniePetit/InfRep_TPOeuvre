@@ -113,13 +113,18 @@ public class ListeOeuvreControleur extends HttpServlet {
         }
         else if(MODIFIER.equals(actionName)) {
             try {
+
                 Oeuvrevente uneOeuvre = new Oeuvrevente();
                 uneOeuvre.setTitreOeuvrevente(request.getParameter("titre"));
                 uneOeuvre.getProprietaire().setNomProprietaire(request.getParameter("nomproprio"));
                 uneOeuvre.setPrixOeuvrevente(Integer.parseInt(request.getParameter("prix")));
 
                 Service unService = new Service();
+
                 unService.editOeuvre(uneOeuvre, request.getParameter("id"));
+
+                request.setAttribute("flashMessage_success", "The Work of art '" + uneOeuvre.getTitreOeuvrevente() + "' has been modified successfully");
+
                 redirect = true;
 
             } catch (MonException e) {

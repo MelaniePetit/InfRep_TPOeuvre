@@ -128,6 +128,7 @@ public class ListeReservationControleur extends HttpServlet{
                 request.setAttribute("maReservation", unService.consulterReservation(id));
                 request.setAttribute("mesOeuvres", unService.consulterListeOeuvres());
                 request.setAttribute("mesAdherents", unService.consulterListeAdherents());
+
                 request.setAttribute("edit", true);
             } catch (MonException e) {
                 e.printStackTrace();
@@ -139,13 +140,15 @@ public class ListeReservationControleur extends HttpServlet{
             try {
                 Reservation uneReservation = new Reservation();
                 uneReservation.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
-                DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
                 uneReservation.setDate(date);
                 uneReservation.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
-
                 Service unService = new Service();
-                unService.editReservation(uneReservation, request.getParameter("id"));
+                unService.editReservation(uneReservation, request.getParameter("txtid"));
+
+                request.setAttribute("flashMessage_success", "The reservation has been successfully modified");
+
                 redirect = true;
             } catch (MonException e) {
                 e.printStackTrace();

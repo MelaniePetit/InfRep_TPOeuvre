@@ -14,7 +14,7 @@
     <jsp:attribute name="form_tag">
 
         <c:if test="${edit}">
-            <t:input type="number" name="id" value="${maReservation.id}" id="id" placeholder="Id" onblur="verifId(this)" readonly="readonly" label="Id"/>
+            <t:input type="number" name="txtid" value="${maReservation.id}" id="id" placeholder="Id" onblur="verifId(this)" readonly="readonly" label="Id"/>
         </c:if>
 
         <div class="form-group flex-center-center">
@@ -53,7 +53,7 @@
         <script type="text/javascript" src="webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
         <script>
             $('.input-group.date').datepicker({
-                format: "dd/mm/yyyy",
+                format: "yyyy-mm-dd",
                 todayHighlight: true
             });
         </script>
