@@ -29,7 +29,7 @@
                         </div>
                     </c:if>
                     <c:if test="${flashMessage_error != null}">
-                        <div class="alert alert-error">
+                        <div class="alert alert-danger">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>Error!</strong> ${flashMessage_error}
                         </div>

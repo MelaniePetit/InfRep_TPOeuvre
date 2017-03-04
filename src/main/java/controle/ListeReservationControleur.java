@@ -104,13 +104,14 @@ public class ListeReservationControleur extends HttpServlet{
         String id = request.getParameter(ID);
         if (SUPPRIMER.equals(actionName)) {
             try {
-
                 Service unService = new Service();
+                unService.updateOeuvreBeforeDeleteReservation(id);
+                System.out.println("id=" + id);
                 unService.supprimerReservation(id);
                 request.setAttribute("flashMessage_success", "The reservation has been successfully removed");
 
                 unService = new Service();
-                request.setAttribute("myReservation", unService.consulterListeReservation());
+                request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
                 request.setAttribute("title", "ReservationsList");
                 request.setAttribute("contentTitle", "Reservations List");
 
@@ -118,7 +119,6 @@ public class ListeReservationControleur extends HttpServlet{
                 request.setAttribute("flashMessage_error", "Error : The reservation can't be remove");
                 e.printStackTrace();
             }
-
             destinationPage = "/list.jsp";
         }
 
@@ -145,6 +145,7 @@ public class ListeReservationControleur extends HttpServlet{
                 uneReservation.setDate(date);
                 uneReservation.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
                 Service unService = new Service();
+
                 unService.editReservation(uneReservation, request.getParameter("txtid"));
 
                 request.setAttribute("flashMessage_success", "The reservation has been successfully modified");

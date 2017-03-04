@@ -218,6 +218,12 @@ public class Service {
 		supprimer(mysql);
 	}
 
+	public boolean isOeuvreReserved(int id) throws MonException {
+		String mysql = "SELECT etat_oeuvrevente FROM oeuvrevente WHERE id_oeuvrevente='" + id + "'";
+		List<Object> rs = DialogueBd.lecture(mysql);
+		return !rs.isEmpty() || !rs.get(0).toString().equals("L");
+	}
+
 	/****************************************** RESERVATIONS **********************************************/
 
 	// Mise a jour des caracteristiques d'une oeuvre
@@ -313,7 +319,7 @@ public class Service {
 		DialogueBd unDialogueBd = DialogueBd.getInstance();
 		try {
 			mysql = "UPDATE `reservation` SET `date_reservation`='" + uneResa.getDate() + "' WHERE `id_oeuvrevente` = " + numero;
-
+			System.out.println(mysql);
 			unDialogueBd.insertionBD(mysql);
 		} catch (MonException e) {
 			throw e;
@@ -321,8 +327,20 @@ public class Service {
 	}
 
 	public void supprimerReservation(String id) throws MonException {
-		String mysql = "DELETE from reservation WHERE id_adherent='" + id + "'";
+		String mysql = "DELETE from reservation WHERE id_oeuvrevente='" + id + "'";
 		supprimer(mysql);
+	}
+
+	public void updateOeuvreBeforeDeleteReservation(String id) throws MonException{
+		String mysql;
+		DialogueBd unDialogueBd = DialogueBd.getInstance();
+		try {
+			mysql = "UPDATE oeuvrevente SET etat_oeuvrevente='L' WHERE id_oeuvrevente='" + id +"'";
+
+			unDialogueBd.insertionBD(mysql);
+		} catch (MonException e) {
+			throw e;
+		}
 	}
 
 
@@ -423,6 +441,7 @@ public class Service {
 		}
 
 	}
+
 
 
 }

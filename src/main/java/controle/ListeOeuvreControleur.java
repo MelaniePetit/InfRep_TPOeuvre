@@ -82,8 +82,15 @@ public class ListeOeuvreControleur extends HttpServlet {
             try {
 
                 Service unService = new Service();
-                unService.supprimerOeuvre(id);
-                request.setAttribute("flashMessage_success", "The Work of art has been successfully removed");
+                if(!unService.isOeuvreReserved(id))
+                {
+                    unService.supprimerOeuvre(id);
+                    request.setAttribute("flashMessage_success", "The Work of art has been successfully removed");
+                }
+                else
+                {
+                    request.setAttribute("flashMessage_error", "The Work of art is Reserved, delete the reservation first");
+                }
 
                 unService = new Service();
                 request.setAttribute("myEntities", unService.consulterListeOeuvresCRUD());

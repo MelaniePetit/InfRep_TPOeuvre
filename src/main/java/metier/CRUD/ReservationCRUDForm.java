@@ -24,7 +24,7 @@ public class ReservationCRUDForm extends AbstractCRUDForm<Reservation> {
     }
 
     public String getDeleteController() {
-        return "ListeReservations?action=editReservation&id";
+        return "ListeReservations?action=suppReservation&id";
     }
 
     public int getNumberOfFields() {

@@ -20,7 +20,7 @@
         <div class="form-group flex-center-center">
            <label class="control-label col-sm-2" >Work of art available</label>
            <div class="col-sm-5">
-               <select class="form-control " name="txttitre" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
+               <select class="form-control " name="txttitre" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')" ${edit ? ' disabled' : ''}>
                     <c:forEach items="${mesOeuvres}" var="item">
                         <option ${edit ? (item.idOeuvrevente == maReservation.oeuvrevente.idOeuvrevente ? 'selected="selected"' : '') : ''}>${item.titreOeuvrevente}</option>
                     </c:forEach>
@@ -40,7 +40,7 @@
         <div class="form-group flex-center-center">
             <label class="control-label col-sm-2" >Adhérent</label>
             <div class="col-sm-5">
-                <select class="form-control " name="txtadherent" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
+                <select class="form-control " name="txtadherent" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')" ${edit ? ' disabled' : ''}>
                     <c:forEach items="${mesAdherents}" var="item">
                         <option ${edit ? (item.idAdherent == maReservation.adherent.idAdherent ? 'selected="selected"' : '') : ''}>${item.nomAdherent}</option>
                     </c:forEach>
