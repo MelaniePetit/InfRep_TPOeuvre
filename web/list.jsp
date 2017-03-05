@@ -9,7 +9,14 @@
     </jsp:attribute>
 
     <jsp:attribute name="content_tag">
-        <t:table entities="${myEntities}"/>
+        <c:choose>
+            <c:when test="${myEntities.resultsSize() > 0}">
+                <t:table entities="${myEntities}"/>
+            </c:when>
+            <c:otherwise>
+                <h4 class="text-center"> No data available </h4>
+            </c:otherwise>
+        </c:choose>
     </jsp:attribute>
 
     <jsp:attribute name="javascripts_tag">

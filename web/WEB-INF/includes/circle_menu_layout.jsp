@@ -29,10 +29,10 @@
 
 <c:set var="controllerList" value="${
     [
-        'ListeAdherents?action=listerAdherent',
-        'AjouterAdherent?action=ajouterAdherent',
-        'ListeOeuvres?action=listerOeuvre',
-        'AjouterOeuvre?action=ajouterOeuvre',
+        'Member?action=listMember',
+        'Member?action=addMember',
+        'WorkOfArt?action=listWorkOfArt',
+        'WorkOfArt?action=addWorkOfArt',
         'Reservation?action=reserverOeuvre',
         'ListeReservations?action=listerReservation',
         'AjouterProprietaire?action=ajouterProprio',

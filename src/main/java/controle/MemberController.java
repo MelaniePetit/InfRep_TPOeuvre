@@ -12,29 +12,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Mel on 18/02/2017.
- */
-@WebServlet("/ListeAdherents")
-public class ListeAdherentControleur extends HttpServlet{
+@WebServlet("/Member")
+public class MemberController extends HttpServlet {
 
-    private static final String LISTER_ADHERENT = "listerAdherent";
+    //FIELDS
     private static final String ACTION_TYPE = "action";
 
-    private static final String SUPPRIMER = "suppAdherent";
-    private static final String EDIT = "editAdherent"; // ouvre la page d'édition
-    private static final String MODIFIER = "modifierAdherent"; //gère l'envoi des données
+    private static final String LIST_MEMBER = "listMember";
+    private static final String ADD_MEMBER = "addMember";
+    private static final String INSERT_MEMBER = "insertMember";
+    private static final String REMOVE_MEMBER = "removeMember";
+    private static final String EDIT_MEMBER = "editMember"; // open edit page
+    private static final String SUBMIT_EDIT = "submitEdit";
     private static final String ID = "id";
 
-    private static final String ERROR_KEY = "messageErreur";
+    private static final String ERROR_KEY = "errorMessage";
     private static final String ERROR_PAGE = "/erreur.jsp";
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListeAdherentControleur() {
+    public MemberController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -43,7 +42,7 @@ public class ListeAdherentControleur extends HttpServlet{
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraiteRequete(request, response);
+        processRequete(request, response);
     }
 
     /**
@@ -52,16 +51,35 @@ public class ListeAdherentControleur extends HttpServlet{
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraiteRequete(request, response);
+        processRequete(request, response);
     }
 
-    protected void processusTraiteRequete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void processRequete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
         boolean redirect = false;
-        // execute l'action
-        if (LISTER_ADHERENT.equals(actionName)) {
+        // execute action
+        if (ADD_MEMBER.equals(actionName)) {
+            destinationPage = "/actionMember.jsp";
+        }
+        else if (INSERT_MEMBER.equals(actionName)) {
+            try {
+                Adherent unAdherent = new Adherent();
+                unAdherent.setNomAdherent(request.getParameter("nom"));
+                unAdherent.setPrenomAdherent(request.getParameter("prenom"));
+                unAdherent.setVilleAdherent(request.getParameter("ville"));
+                Service unService = new Service();
+                unService.insertAdherent(unAdherent);
+
+                request.setAttribute("flashMessage_success", "The Member " + unAdherent.getPrenomAdherent() + " " + unAdherent.getNomAdherent().toUpperCase() + " has been added successfully");
+                redirect = true;
+            } catch (MonException e) {
+                request.setAttribute("flashMessage_error", "Error : The Member can't be add");
+                e.printStackTrace();
+            }
+            destinationPage = "/actionMember.jsp";
+        }
+        else if (LIST_MEMBER.equals(actionName)) {
             try {
 
                 Service unService = new Service();
@@ -77,7 +95,7 @@ public class ListeAdherentControleur extends HttpServlet{
 
             destinationPage = "/list.jsp";
         }
-        if (SUPPRIMER.equals(actionName)) {
+        else if (REMOVE_MEMBER.equals(actionName)) {
             String id = request.getParameter(ID);
             try {
 
@@ -98,7 +116,7 @@ public class ListeAdherentControleur extends HttpServlet{
             destinationPage = "/list.jsp";
         }
         String id = request.getParameter(ID);
-        if (EDIT.equals(actionName)) {
+        if (EDIT_MEMBER.equals(actionName)) {
             try {
                 Service unService = new Service();
                 request.setAttribute("monAdherent", unService.consulterAdherent(id));
@@ -107,9 +125,7 @@ public class ListeAdherentControleur extends HttpServlet{
                 e.printStackTrace();
             }
             destinationPage = "/actionMember.jsp";
-        }
-
-        else if(MODIFIER.equals(actionName)) {
+        } else if (SUBMIT_EDIT.equals(actionName)) {
             try {
                 Adherent unAdherent = new Adherent();
                 unAdherent.setNomAdherent(request.getParameter("nom"));
@@ -127,21 +143,16 @@ public class ListeAdherentControleur extends HttpServlet{
             }
             destinationPage = "/list.jsp";
 
-        }
-        else {
+        } else {
             String messageErreur = "[" + actionName + "] n'est pas une action valide.";
             request.setAttribute(ERROR_KEY, messageErreur);
         }
         // Redirection vers la page jsp appropriee
-        if(redirect)
-        {
-            request.getRequestDispatcher("/ListeAdherents?action=listerAdherent").forward(request, response);
-        }
-        else {
+        if (redirect) {
+            request.getRequestDispatcher("/Member?action=listMember").forward(request, response);
+        } else {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
             dispatcher.forward(request, response);
         }
-
     }
-
 }

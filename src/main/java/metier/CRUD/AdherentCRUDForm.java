@@ -20,11 +20,11 @@ public class AdherentCRUDForm extends AbstractCRUDForm<Adherent> {
     }
 
     public String getEditController() {
-        return "ListeAdherents?action=editAdherent&id";
+        return "Member?action=editMember&id";
     }
 
     public String getDeleteController() {
-        return "ListeAdherents?action=suppAdherent&id";
+        return "Member?action=removeMember&id";
     }
 
     public int getNumberOfFields() {

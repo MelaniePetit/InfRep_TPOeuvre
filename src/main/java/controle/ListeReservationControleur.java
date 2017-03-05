@@ -111,6 +111,8 @@ public class ListeReservationControleur extends HttpServlet{
                 request.setAttribute("flashMessage_success", "The reservation has been successfully removed");
 
                 unService = new Service();
+                System.out.println(unService.consulterListeReservationCRUD());
+
                 request.setAttribute("myEntities", unService.consulterListeReservationCRUD());
                 request.setAttribute("title", "ReservationsList");
                 request.setAttribute("contentTitle", "Reservations List");

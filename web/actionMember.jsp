@@ -2,7 +2,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<t:form title="${edit ? 'EditMember' : 'AddMember'}" contentTitle="${edit ? 'Edit Member' : 'Add Member'}" action="${edit ? 'ListeAdherents?action=modifierAdherent' : 'AjouterAdherent?action=insererAdherent'}" typeOfEntity="member" method="post" edit="${edit ? 'true' : 'false'}" test="verifFormAdherent(this)">
+<t:form title="${edit ? 'EditMember' : 'AddMember'}" contentTitle="${edit ? 'Edit Member' : 'Add Member'}" action="${edit ? 'Member?action=submitEdit' : 'Member?action=insertMember'}" typeOfEntity="member" method="post" edit="${edit ? 'true' : 'false'}" test="verifFormAdherent(this)">
     <jsp:attribute name="form_tag">
         <c:if test="${edit}">
             <t:input value="${edit ? monAdherent.idAdherent : ''}" type="number" name="id" id="id" placeholder="Id" onblur="verifId(this)" readonly="readonly" label="Id"/>
