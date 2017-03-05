@@ -22,5 +22,8 @@
         <div class="flex-center-center">
             <img src="images/404.png" class="col-xs-12 col-sm-7 col-md-5 col-lg-4" <%--style="display: block; margin-left: auto; margin-right: auto; max-width: 100%; height: auto;"--%>>
         </div>
+        <div class="flex-center-center">
+            <h4 class="text-center">The page you try to attempt does not exist !</h4>
+        </div>
     </jsp:attribute>
 </t:layout>
