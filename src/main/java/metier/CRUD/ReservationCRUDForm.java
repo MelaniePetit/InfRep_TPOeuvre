@@ -20,11 +20,11 @@ public class ReservationCRUDForm extends AbstractCRUDForm<Reservation> {
     }
 
     public String getEditController() {
-        return "ListeReservations?action=editReservation&id";
+        return "Reservation?action=editReservation&id";
     }
 
     public String getDeleteController() {
-        return "ListeReservations?action=suppReservation&id";
+        return "Reservation?action=removeReservation&id";
     }
 
     public int getNumberOfFields() {

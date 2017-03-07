@@ -10,7 +10,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<t:form title="${edit ? 'EditReservation' : 'AddReservation'}" contentTitle="${edit ? 'Edit Reservation' : 'Add Reservation'}" action="${edit ? 'ListeReservations?action=modifierReservation&id' : 'Reservation?action=insererReservation'}" typeOfEntity="reservation" method="post" edit="${edit ? 'true' : ''}">
+<t:form title="${edit ? 'EditReservation' : 'AddReservation'}" contentTitle="${edit ? 'Edit Reservation' : 'Add Reservation'}" action="${edit ? 'Reservation?action=submitEdit' : 'Reservation?action=insertReservation'}" typeOfEntity="reservation" method="post" edit="${edit ? 'true' : ''}">
     <jsp:attribute name="form_tag">
 
         <c:if test="${edit}">

@@ -22,11 +22,11 @@ public class ProprietaireCRUDForm extends AbstractCRUDForm<Proprietaire> {
     }
 
     public String getEditController() {
-        return "ListeProprietaires?action=editProprio&id";
+        return "Owner?action=editOwner&id";
     }
 
     public String getDeleteController() {
-        return "ListeProprietaires?action=suppProprio&id";
+        return "Owner?action=removeOwner&id";
     }
 
     public int getNumberOfFields() {

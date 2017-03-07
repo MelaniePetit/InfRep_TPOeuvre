@@ -221,7 +221,7 @@ public class Service {
 	public boolean isOeuvreReserved(int id) throws MonException {
 		String mysql = "SELECT etat_oeuvrevente FROM oeuvrevente WHERE id_oeuvrevente='" + id + "'";
 		List<Object> rs = DialogueBd.lecture(mysql);
-		return !rs.isEmpty() || !rs.get(0).toString().equals("L");
+		return !rs.isEmpty() && rs.get(0).toString().equals("R");
 	}
 
 	/****************************************** RESERVATIONS **********************************************/

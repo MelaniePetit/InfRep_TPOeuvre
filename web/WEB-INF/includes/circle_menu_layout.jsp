@@ -33,10 +33,10 @@
         'Member?action=addMember',
         'WorkOfArt?action=listWorkOfArt',
         'WorkOfArt?action=addWorkOfArt',
-        'Reservation?action=reserverOeuvre',
-        'ListeReservations?action=listerReservation',
-        'AjouterProprietaire?action=ajouterProprio',
-        'ListeProprietaires?action=listerProprio'
+        'Reservation?action=addReservation',
+        'Reservation?action=listReservation',
+        'Owner?action=addOwner',
+        'Owner?action=listOwner'
     ]
 }"/>
 

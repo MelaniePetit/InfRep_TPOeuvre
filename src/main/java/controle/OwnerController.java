@@ -2,7 +2,6 @@ package controle;
 
 import dao.Service;
 import erreurs.MonException;
-import metier.Adherent;
 import metier.Proprietaire;
 
 import javax.servlet.RequestDispatcher;
@@ -14,25 +13,28 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Mel on 01/03/2017.
+ * Created by jeremy on 07/03/2017.
  */
-@WebServlet("/ListeProprietaires")
-public class ListerProprietaireControleur extends HttpServlet {
+@WebServlet("/Owner")
+public class OwnerController extends HttpServlet {
+    //FIELDS
     private static final String ACTION_TYPE = "action";
 
-    private static final String LISTER_PROPRIETAIRE= "listerProprio";
-    private static final String SUPPRIMER = "suppProprio";
-    private static final String EDIT = "editProprio"; // ouvre la page d'édition
-    private static final String MODIFIER = "modifierProprio"; //gère l'envoi des données
+    private static final String LIST_OWNER = "listOwner";
+    private static final String ADD_OWNER = "addOwner";
+    private static final String INSERT_OWNER = "insertOwner";
+    private static final String REMOVE_OWNER = "removeOwner";
+    private static final String EDIT_OWNER = "editOwner"; // open edit page
+    private static final String SUBMIT_EDIT = "submitEdit";
     private static final String ID = "id";
 
-    private static final String ERROR_KEY = "messageErreur";
+    private static final String ERROR_KEY = "errorMessage";
     private static final String ERROR_PAGE = "/erreur.jsp";
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListerProprietaireControleur() {
+    public OwnerController() {
         super();
     }
 
@@ -42,7 +44,7 @@ public class ListerProprietaireControleur extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraiteRequete(request, response);
+        processRequete(request, response);
     }
 
     /**
@@ -51,16 +53,35 @@ public class ListerProprietaireControleur extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraiteRequete(request, response);
+        processRequete(request, response);
     }
 
-    protected void processusTraiteRequete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void processRequete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
         boolean redirect = false;
-        // execute l'action
-        if (LISTER_PROPRIETAIRE.equals(actionName)) {
+        if (ADD_OWNER.equals(actionName)) {
+
+            destinationPage = "/actionOwner.jsp";
+        }
+        else if (INSERT_OWNER.equals(actionName)) {
+            try {
+                Proprietaire unProprio = new Proprietaire();
+                unProprio.setNomProprietaire(request.getParameter("nom"));
+                unProprio.setPrenomProprietaire(request.getParameter("prenom"));
+                Service unService = new Service();
+                unService.insertProprietaire(unProprio);
+
+                request.setAttribute("flashMessage_success", "The Owner called " + unProprio.getPrenomProprietaire() + " " + unProprio.getNomProprietaire().toUpperCase() + " has been added successfully");
+                redirect = true;
+
+            } catch (MonException e) {
+                request.setAttribute("flashMessage_error", "Error : The owner can't be add");
+                e.printStackTrace();
+            }
+            destinationPage = "/actionOwner.jsp";
+        }
+        else if (LIST_OWNER.equals(actionName)) {
             try {
 
                 Service unService = new Service();
@@ -75,7 +96,7 @@ public class ListerProprietaireControleur extends HttpServlet {
 
             destinationPage = "/list.jsp";
         }
-        if (SUPPRIMER.equals(actionName)) {
+        if (REMOVE_OWNER.equals(actionName)) {
             String id = request.getParameter(ID);
             try {
 
@@ -96,7 +117,7 @@ public class ListerProprietaireControleur extends HttpServlet {
             destinationPage = "/list.jsp";
         }
         String id = request.getParameter(ID);
-        if (EDIT.equals(actionName)) {
+        if (EDIT_OWNER.equals(actionName)) {
             try {
                 System.out.println(id);
                 Service unService = new Service();
@@ -108,7 +129,7 @@ public class ListerProprietaireControleur extends HttpServlet {
             destinationPage = "/actionOwner.jsp";
         }
 
-        else if(MODIFIER.equals(actionName)) {
+        else if(SUBMIT_EDIT.equals(actionName)) {
             try {
                 Proprietaire unProprio = new Proprietaire();
                 unProprio.setNomProprietaire(request.getParameter("nom"));
@@ -133,12 +154,11 @@ public class ListerProprietaireControleur extends HttpServlet {
         // Redirection vers la page jsp appropriee
         if(redirect)
         {
-            request.getRequestDispatcher("/ListeProprietaires?action=listerProprio").forward(request, response);
+            request.getRequestDispatcher("/Owner?action=listOwner").forward(request, response);
         }
         else {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
             dispatcher.forward(request, response);
         }
     }
-
 }

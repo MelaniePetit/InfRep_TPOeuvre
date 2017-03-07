@@ -15,32 +15,31 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 /**
- * Created by Mel on 25/02/2017.
+ * Created by jeremy on 07/03/2017.
  */
-@WebServlet("/ListeReservations")
-public class ListeReservationControleur extends HttpServlet{
-
-    private static final String LISTER_RESERVATION = "listerReservation";
+@WebServlet("/Reservation")
+public class ReservationController extends HttpServlet {
+    //FIELDS
     private static final String ACTION_TYPE = "action";
 
-    private static final String SUPPRIMER = "suppReservation";
-    private static final String EDIT = "editReservation"; // ouvre la page d'édition
-    private static final String MODIFIER = "modifierReservation"; //gère l'envoi des données
+    private static final String LIST_RESERVATION = "listReservation";
+    private static final String ADD_RESERVATION = "addReservation";
+    private static final String INSERT_RESERVATION = "insertReservation";
+    private static final String REMOVE_RESERVATION = "removeReservation";
+    private static final String EDIT_RESERVATION = "editReservation"; // open edit page
+    private static final String SUBMIT_EDIT = "submitEdit";
     private static final String ID = "id";
-    private String id ;
 
-    private static final String ERROR_KEY = "messageErreur";
+    private static final String ERROR_KEY = "errorMessage";
     private static final String ERROR_PAGE = "/erreur.jsp";
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListeReservationControleur() {
+    public ReservationController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -49,7 +48,7 @@ public class ListeReservationControleur extends HttpServlet{
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraiteRequete(request, response);
+        processRequete(request, response);
     }
 
     /**
@@ -58,10 +57,10 @@ public class ListeReservationControleur extends HttpServlet{
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processusTraiteRequete(request, response);
+        processRequete(request, response);
     }
 
-    protected void adherentsComboBox(HttpServletRequest request){
+    private void adherentsComboBox(HttpServletRequest request){
         try {
             Service unService = new Service();
             request.setAttribute("mesAdherents", unService.consulterListeAdherents());
@@ -71,7 +70,7 @@ public class ListeReservationControleur extends HttpServlet{
         }
     }
 
-    protected void oeuvresComboBox(HttpServletRequest request){
+    private void oeuvresComboBox(HttpServletRequest request){
         try {
             Service unService = new Service();
             request.setAttribute("mesOeuvres", unService.consulterListeOeuvresDisponibles());
@@ -81,13 +80,41 @@ public class ListeReservationControleur extends HttpServlet{
         }
     }
 
-    protected void processusTraiteRequete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void processRequete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String actionName = request.getParameter(ACTION_TYPE);
         String destinationPage = ERROR_PAGE;
         boolean redirect = false;
-        // execute l'action
-        if (LISTER_RESERVATION.equals(actionName)) {
+        if (ADD_RESERVATION.equals(actionName)){
+            adherentsComboBox(request);
+            oeuvresComboBox(request);
+            destinationPage = "/actionReservation.jsp";
+        }
+        else if (INSERT_RESERVATION.equals(actionName)) {
+            try {
+                Reservation uneResa = new Reservation();
+                uneResa.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = new Date(df.parse(request.getParameter("txtdate")).getTime());
+                uneResa.setDate(date);
+                uneResa.getAdherent().setNomAdherent(request.getParameter("txtadherent"));
+
+                Service unService = new Service();
+                unService.insertReservation(uneResa);
+
+                request.setAttribute("flashMessage_success", "The reservation has been successfully added");
+                redirect = true;
+
+            } catch (MonException e) {
+                request.setAttribute("flashMessage_error", "Error : The reservation can't be add");
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            adherentsComboBox(request);
+            oeuvresComboBox(request);
+            destinationPage = "/actionReservation.jsp";
+        }
+        else if (LIST_RESERVATION.equals(actionName)) {
             try {
 
                 Service unService = new Service();
@@ -102,7 +129,7 @@ public class ListeReservationControleur extends HttpServlet{
             destinationPage = "/list.jsp";
         }
         String id = request.getParameter(ID);
-        if (SUPPRIMER.equals(actionName)) {
+        if (REMOVE_RESERVATION.equals(actionName)) {
             try {
                 Service unService = new Service();
                 unService.updateOeuvreBeforeDeleteReservation(id);
@@ -124,7 +151,7 @@ public class ListeReservationControleur extends HttpServlet{
             destinationPage = "/list.jsp";
         }
 
-        if (EDIT.equals(actionName)) {
+        if (EDIT_RESERVATION.equals(actionName)) {
             try {
                 Service unService = new Service();
                 request.setAttribute("maReservation", unService.consulterReservation(id));
@@ -138,7 +165,7 @@ public class ListeReservationControleur extends HttpServlet{
             destinationPage = "/actionReservation.jsp";
         }
 
-        else if(MODIFIER.equals(actionName)) {
+        else if(SUBMIT_EDIT.equals(actionName)) {
             try {
                 Reservation uneReservation = new Reservation();
                 uneReservation.getOeuvrevente().setTitreOeuvrevente(request.getParameter("txttitre"));
@@ -168,13 +195,11 @@ public class ListeReservationControleur extends HttpServlet{
         // Redirection vers la page jsp appropriee
         if(redirect)
         {
-            request.getRequestDispatcher("/ListeReservations?action=listerReservation").forward(request, response);
+            request.getRequestDispatcher("/Reservation?action=listReservation").forward(request, response);
         }
         else {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
             dispatcher.forward(request, response);
         }
-
     }
-
 }
